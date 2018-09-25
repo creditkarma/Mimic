@@ -1,0 +1,23 @@
+{
+  "name": "@creditkarma/mimic-rest",
+  "description": "Service Impersonator: REST support",
+  "homepage": "https://github.com/creditkarma/Mimic",
+  "author": "Credit Karma Inc.",
+  "contributors": [
+    "Volodymyr Ladnik"
+  ],
+  "version": "2.0.0",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "main": "dist/index.js",
+  "repository": "https://github.com/creditkarma/Mimic/tree/master/packages/mimic-rest",
+  "types": "dist/index.d.ts",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@creditkarma/mimic-core": "2.0.0"
+  }
+}

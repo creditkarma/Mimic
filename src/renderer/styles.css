@@ -1,0 +1,95 @@
+.ant-layout {
+  background-color: white;
+}
+.ant-layout-sider {
+  background-color: white;
+  overflow: hidden;
+  position: fixed;
+}
+
+.editable-cell {
+  position: relative;
+}
+
+.editable-cell-input-wrapper,
+.editable-cell-text-wrapper {
+  padding-right: 24px;
+}
+
+.editable-cell-icon,
+.editable-cell-icon-check {
+  position: absolute;
+  right: 0;
+  width: 20px;
+  cursor: pointer;
+}
+
+.editable-cell-icon {
+  display: none;
+}
+
+.editable-cell-icon-check {
+  line-height: 28px;
+}
+
+.editable-cell:hover .editable-cell-icon {
+  display: inline-block;
+}
+
+.editable-cell-icon:hover,
+.editable-cell-icon-check:hover {
+  color: #108ee9;
+}
+
+.includes-panel {
+  top: -10px;
+  left: -10px;
+  position: relative;
+}
+
+.ant-dropdown-menu-submenu {
+  z-index: 1050;
+}
+.jsoneditor-value {
+  border: 0;
+  margin-left: 7px;
+}
+.ant-tree.tree-view li .ant-tree-node-content-wrapper:hover {
+  background-color: inherit;
+}
+.jsoneditor-value:focus {
+  outline: 0;
+}
+.jsoneditor-string {
+  color: green;
+}
+.jsoneditor-number {
+  color: #ee422e;
+}
+.jsoneditor-number::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.tree-select {
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.menu-switch {
+  width: 186px;
+  text-decoration: none;
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.json {
+  max-height: 700px;
+  min-height: 200px;
+}
+
+.ant-dropdown-menu-submenu-popup {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-height: 400px;
+  overflow: scroll;  
+}
