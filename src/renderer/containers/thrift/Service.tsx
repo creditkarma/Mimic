@@ -60,16 +60,20 @@ class Service extends React.Component<IProps, {}> {
             <h2 id="Details">Details</h2>
             {service ? <DetailsCard service={service} /> : null}
             <br />
-            <h2 id="Responses">Responses</h2>
-            <Table
-              columns={this.reponseColumns(thrift)}
-              dataSource={this.responses(responses[id] || {})}
-              expandedRowRender={expanded}
-              rowKey="func"
-            />
-            <Row type="flex" justify="end" style={{ padding: 10 }}>
-              <Button onClick={() => this.props.newResponse(id)} size="large" icon="plus">Add</Button>
-            </Row>
+            {service && !service.proxy ?
+              <div>
+                <h2 id="Responses">Responses</h2>
+                <Table
+                  columns={this.reponseColumns(thrift)}
+                  dataSource={this.responses(responses[id] || {})}
+                  expandedRowRender={expanded}
+                  rowKey="func"
+                />
+                <Row type="flex" justify="end" style={{ padding: 10 }}>
+                  <Button onClick={() => this.props.newResponse(id)} size="large" icon="plus">Add</Button>
+                </Row>
+              </div> : null
+            }
             {thrift ? <Documentation thrift={thrift} /> : null}
           </Col>
           <Col span={5}>
@@ -105,17 +109,20 @@ class Service extends React.Component<IProps, {}> {
     }];
   }
 
-  public renderAnchor = () =>
-    <Anchor offsetTop={30} style={{ paddingBottom: 15 }}>
+  public renderAnchor = () => {
+    const { match: { params: { id } }, services } = this.props;
+    const { proxy } = services[id];
+    return <Anchor offsetTop={30} style={{ paddingBottom: 15 }}>
       <Link href="#Details" title="Details" />
-      <Link href="#Responses" title="Responses" />
+      {!proxy ? <Link href="#Responses" title="Responses" /> : null}
       <Link href="#Search" title="Search" />
       <Link href="#services" title="Services" />
       <Link href="#structs" title="Structs" />
       <Link href="#enumerations" title="Enumerations" />
       <Link href="#typedefs" title="Typedefs" />
       <Link href="#constants" title="Constants" />
-    </Anchor>
+    </Anchor>;
+  }
 
   public functions = (thrift?: ThriftFile.IJSON) => {
     const func: { [key: string]: ThriftFile.IFunction } = {};

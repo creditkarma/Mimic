@@ -49,7 +49,7 @@ export class Documentation extends React.PureComponent<IProps, IState> {
     return (
       <div>
         <h2 id="Search">Search</h2>
-        <Search placeholder="input search text" onSearch={this.searchTypes} enterButton style={{ width: 400 }}/>
+        <Search placeholder="Search type" onChange={this.searchTypes} enterButton style={{ width: 400 }}/>
         {Object.entries(search).map(([key, val]) => {
           if (val.length > 0) {
             return (
@@ -100,13 +100,14 @@ export class Documentation extends React.PureComponent<IProps, IState> {
     this.lists[kind].scrollToRow(index);
   }
 
-  public searchTypes = (s: string) => {
-    if (s.length < 3 ) {
+  public searchTypes = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {value} = e.target;
+    if (value.length < 1 ) {
       return this.setState({...this.state, search: this.initialSeach});
     }
     const { graphql } = this.props;
     const result = mapValues(graphql, (val) =>
-      Object.keys(val).filter((k) => k.toLowerCase().includes(s.toLowerCase())),
+      Object.keys(val).filter((k) => k.toLowerCase().includes(value.toLowerCase())),
     );
     this.setState({...this.state, search: result});
   }

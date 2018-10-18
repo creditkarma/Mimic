@@ -14,6 +14,12 @@ Supported service protols:
 - [x] [Apache Thrift](https://thrift.apache.org/)
 - [x] [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) (to support legacy services)
 
+Supported client protols:
+- [x] [Apache Thrift](https://thrift.apache.org/)
+
+Supported proxy protols:
+- [x] [Apache Thrift](https://thrift.apache.org/)
+
 ## Development
 If you want to help with the project, simply clone down this reposity, install dependencies, and get started on your application.
 The use of the [yarn](https://yarnpkg.com/) package manager is **strongly** recommended, as opposed to using `npm`.

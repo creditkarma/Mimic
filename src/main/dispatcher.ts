@@ -40,6 +40,9 @@ app.load(() => {
     callback(null, { ...action, requests });
   });
 
+  // Clients
+  addHandler<revents.SEND_REQUEST>("SEND_REQUEST", serviceManager.request);
+
   // GraphQL
   addHandler<revents.PARSE_GRAPHQL>("PARSE_GRAPHQL", app.parseGraphqlDialog);
   addHandler<revents.GET_GRAPHQL>("GET_GRAPHQL", (action, callback) => {

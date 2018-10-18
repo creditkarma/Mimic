@@ -1,7 +1,7 @@
 import { Layout } from "antd";
 import * as React from "react";
 import { HashRouter as Router, Redirect, Route, Switch } from "react-router-dom";
-import { graphql, requests, rest, thrift } from "./containers";
+import { client, graphql, requests, rest, thrift } from "./containers";
 import SideNav from "./side_nav";
 
 const Routes = () => (
@@ -14,6 +14,7 @@ const Routes = () => (
         <Switch>
           <Redirect exact from="/" to="/requests"/>
           <Route path="/requests" component={requests.IndexPage} />
+          <Route path="/client" component={client.IndexPage} />
           <Route path="/graphql" component={graphql.IndexPage} />
           <Route path="/thrift" component={thrift.IndexPage} />
           <Route path="/rest" component={rest.IndexPage} />

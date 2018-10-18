@@ -25,6 +25,12 @@ const SideNav: React.SFC<RouteComponentProps<any> & IProps> = ({ location, servi
           <span>Requests</span>
         </Link>
       </Menu.Item>
+      <Menu.Item key="/client">
+        <Link to="/client">
+          <Icon type="rocket" />
+          <span>Client</span>
+        </Link>
+      </Menu.Item>
       <Menu.Item key="/graphql">
         <Link to="/graphql">
           <i className="anticon"><GraphqlLogo/></i>

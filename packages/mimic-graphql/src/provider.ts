@@ -63,6 +63,9 @@ export class GraphQLProvider extends EventEmitter implements IServiceProvider {
         case type instanceof gql.GraphQLUnionType:
           (type as gql.GraphQLUnionType).resolveType = (v) => v.__type;
           break;
+        case type instanceof gql.GraphQLScalarType:
+          (type as gql.GraphQLScalarType).serialize = (v) => v;
+          break;
         }
       });
       return schema;
@@ -185,9 +188,12 @@ export class GraphQLProvider extends EventEmitter implements IServiceProvider {
         response.setHeader("server", `mimic: ${process.env.MIMIC_VERSION}`);
         response.setHeader("Content-Type", "application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
-        const {query, operationName} = body;
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        const {query, operationName, variables} = body;
         Object.assign(root, ...Object.values(this.respManager.find(id)));
-        gql.graphql(this.gqlSchemas[id], query, root).then((data) => {
+        gql.graphql(this.gqlSchemas[id], query, root, null, variables, operationName).then((data) => {
           const req: IMimicRequest = {
             type: "graphql",
             serviceId: id,
@@ -206,6 +212,13 @@ export class GraphQLProvider extends EventEmitter implements IServiceProvider {
 
   private readBody = (request: IncomingMessage, response: ServerResponse, callback: (body: any) => void) => {
     switch (request.method) {
+    case "OPTIONS":
+      response.setHeader("Access-Control-Allow-Origin", "*");
+      response.setHeader("Access-Control-Allow-Headers", "*");
+      response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+      response.setHeader("Access-Control-Allow-Credentials", "true");
+      response.end();
+      break;
     case "POST":
       const body: string[] = [];
       request.on("data", (chunk: string) => {

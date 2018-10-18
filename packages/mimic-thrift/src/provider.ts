@@ -1,7 +1,12 @@
 import * as EventEmitter from "events";
+import { IncomingMessage, ServerResponse } from "http";
 import { Server } from "net";
 import * as path from "path";
 import {
+  createClient,
+  createConnection,
+  createHttpClient,
+  createHttpConnection,
   createServer,
   createWebServer,
   TBinaryProtocol,
@@ -14,6 +19,8 @@ import {
 import {
   deleteConfig,
   detectGit,
+  IClient,
+  IClientProvider,
   IGit,
   IMimicRequest,
   IServiceJson,
@@ -36,6 +43,9 @@ export interface IThriftServiceJson extends IServiceJson {
   url?: string;
   transport: "Buffered" | "Framed";
   protocol: "Binary" | "Json" | "Compact";
+  proxy: boolean;
+  remoteHost?: string;
+  remotePort?: number;
   git?: {
     root: string;
     branch: string;
@@ -54,7 +64,7 @@ export interface IParseOutput {
  *
  * @class ThriftProvider
  */
-export class ThriftProvider extends EventEmitter implements IServiceProvider {
+export class ThriftProvider extends EventEmitter implements IServiceProvider, IClientProvider {
   // Supported transports
   public static transports = {
     Buffered: TBufferedTransport,
@@ -67,6 +77,8 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider {
     Compact: TCompactProtocol,
   };
   public thrift: IUniq<ThriftFile.IJSON>;
+  public clients: IUniq<IClient> = {};
+  private headers: IUniq<any> = {};
   private respManager: ResponseManager;
 
   // Initialize
@@ -89,25 +101,93 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider {
   public create = (params: IThriftServiceJson): Server => {
     const { id, transport, protocol, service, useHttp, url } = params;
     const api = buildServiceAPI(this.thrift[id]);
-    const handler = this.handler(id);
+    const handler = this.handler(params);
+    let server: Server;
     if (useHttp) {
       // HTTP Server
       const options = {
         processor: api[service], handler,
         transport: ThriftProvider.transports[transport],
         protocol: ThriftProvider.protocols[protocol],
-        headers: {
-          server: `mimic: ${process.env.MIMIC_VERSION}`,
-        },
+        headers: {Server: `mimic: ${process.env.MIMIC_VERSION}`},
       };
-      return createWebServer({ services: { [url || "/"]: options } });
+      server = createWebServer({ services: { [url || "/"]: options } });
+      server.on("request", (request: IncomingMessage, response: ServerResponse) => {
+        this.headers[id] = request.headers;
+      });
     } else {
       // TCP Server
-      return createServer(api[service], handler, {
+      server = createServer(api[service], handler, {
         transport: ThriftProvider.transports[transport],
         protocol: ThriftProvider.protocols[protocol],
       });
     }
+    this.clients[id] = this.createClient(params, api);
+    return server;
+  }
+
+  /**
+   * Create Thrift client
+   */
+  public createClient = (params: IThriftServiceJson, api: any) => {
+    const { transport, protocol, service, useHttp } = params;
+    let iclient: IClient;
+    if (useHttp) {
+      // HTTP Client
+      iclient = (action, callback) => {
+        try {
+          const {request: {args, func, host, port}} = action;
+          action.request.headers = Object.assign(
+            {"User-Agent": `mimic: ${process.env.MIMIC_VERSION}`},
+            action.request.headers,
+          );
+          const connection = createHttpConnection(host, port, {
+            transport: ThriftProvider.transports[transport],
+            protocol: ThriftProvider.protocols[protocol],
+            path: action.request.path,
+            headers: Object.assign({"User-Agent": `mimic: ${process.env.MIMIC_VERSION}`}, action.request.headers),
+          });
+          connection.on("error", (error) => {
+            callback(error, action);
+          });
+          let headers: any;
+          const orig = connection.responseCallback;
+          connection.responseCallback = (response) => {
+            headers = response.headers;
+            orig(response);
+          };
+          const client: any = createHttpClient(api[service], connection);
+          action.request.time = Date.now();
+          client[func](args, (error: any, success: any) => {
+            callback(null, {...action, response: {error, success, headers, time: Date.now()}});
+          });
+        } catch (error) {
+          callback(error, action);
+        }
+      };
+    } else {
+      // TCP Client
+      iclient = (action, callback) => {
+        try {
+          const {request: {args, func, host, port}} = action;
+          const connection = createConnection(host, port, {
+            transport: ThriftProvider.transports[transport],
+            protocol: ThriftProvider.protocols[protocol],
+          });
+          connection.on("error", (error) => {
+            callback(error, action);
+          });
+          const client: any = createClient(api[service], connection);
+          action.request.time = Date.now();
+          client[func](args, (error: any, success: any) => {
+            callback(null, {...action, response: {error, success, time: Date.now()}});
+          });
+        } catch (error) {
+          callback(error, action);
+        }
+      };
+    }
+    return iclient;
   }
 
   /**
@@ -133,6 +213,10 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider {
     this.respManager.delete(id);
     // Delete Thrift file
     delete this.thrift[id];
+    // Delete Thrift client
+    delete this.clients[id];
+    // Delete Headers
+    delete this.headers[id];
     deleteConfig(path.join("thrift", `${id}.json`));
   }
 
@@ -159,17 +243,35 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider {
   /**
    * Handle Thrift requests
    */
-  private handler = (id: string) => {
+  private handler = (params: IThriftServiceJson) => {
+    const {id, proxy, remoteHost, remotePort, url} = params;
     const def = this.thrift[id];
     return (func: ThriftFile.IFunction, args: any, callback: (data: any, excep?: string) => void) => {
-      const { data, exception } = this.respManager.find(id)[func.name] || {
-        data: generateThriftResponse(func.returnTypeId, def, func.returnType, func.returnExtra),
-        exception: undefined,
-      };
-      // Return data
-      callback(data, exception);
-      // Emit request
-      this.emitRequest(id, func, args, data, exception);
+      if (proxy) {
+        const request = {id, host: remoteHost!, port: remotePort!, path: url,
+          func: func.name, args, time: Date.now(), headers: this.headers[id],
+        };
+        this.clients[id]({request}, (err, action) => {
+          const {response} = action;
+          const {error, success} = response!;
+          if (error) {
+            callback(error, error.name);
+            this.emitRequest(id, func, args, error, error.name);
+          } else {
+            callback(success);
+            this.emitRequest(id, func, args, success);
+          }
+        });
+      } else {
+        const { data, exception } = this.respManager.find(id)[func.name] || {
+          data: generateThriftResponse(func.returnTypeId, def, func.returnType, func.returnExtra),
+          exception: undefined,
+        };
+        // Return data
+        callback(data, exception);
+        // Emit request
+        this.emitRequest(id, func, args, data, exception);
+      }
     };
   }
 

@@ -1,4 +1,11 @@
-import { IGit, IMimicRequest, IResponses, IServiceJson, IUniq } from "@creditkarma/mimic-core";
+import {
+  IClientAction,
+  IGit,
+  IMimicRequest,
+  IResponses,
+  IServiceJson,
+  IUniq,
+} from "@creditkarma/mimic-core";
 import { IGraphqlTypes } from "@creditkarma/mimic-graphql";
 import { ThriftFile } from "@creditkarma/mimic-thrift";
 
@@ -46,6 +53,9 @@ export interface UPDATE_SERVICE {
 export interface DELETE_SERVICE {
   id: string;
 }
+
+// CLIENT
+export interface SEND_REQUEST extends IClientAction {}
 
 // THRIFT
 export interface GET_THRIFT {

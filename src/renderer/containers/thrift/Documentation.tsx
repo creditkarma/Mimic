@@ -47,7 +47,7 @@ export class Documentation extends React.PureComponent<IProps, IState> {
     return (
       <div>
         <h2 id="Search">Search</h2>
-        <Search placeholder="input search text" onSearch={this.searchTypes} enterButton style={{ width: 400 }}/>
+        <Search placeholder="Search type" onChange={this.searchTypes} enterButton style={{ width: 400 }}/>
         {Object.entries(search).map(([key, val]) => {
           if (val.length > 0) {
             return (
@@ -83,13 +83,14 @@ export class Documentation extends React.PureComponent<IProps, IState> {
     );
   }
 
-  public searchTypes = (s: string) => {
-    if (s.length < 3 ) {
+  public searchTypes = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {value} = e.target;
+    if (value.length < 1 ) {
       return this.setState({...this.state, search: this.initialSeach});
     }
     const { thrift } = this.props;
     const result = mapValues(pick(thrift, "structs", "enums", "typedefs"), (val: Array<{name: string}>) =>
-      val.map((v) => v.name).filter((v) => v.toLowerCase().includes(s.toLowerCase())),
+      val.map((v) => v.name).filter((v) => v.toLowerCase().includes(value.toLowerCase())),
     );
     this.setState({...this.state, search: result});
   }
@@ -153,7 +154,7 @@ export class Documentation extends React.PureComponent<IProps, IState> {
         case "map":
           return <span>map&lt;
           {this.formatType(type.keyTypeId, type.keyType, type.keyExtra)},
-          {this.formatType(type.valueTypeId, type.valueType, type.keyExtra)}
+          {this.formatType(type.valueTypeId, type.valueType, type.valueExtra)}
             &gt;</span>;
         default:
           throw new Error(`Can't handle "${typeId}" type yet`);

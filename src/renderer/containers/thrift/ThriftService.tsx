@@ -16,7 +16,7 @@ const protocols = ["Binary", "Json", "Compact"];
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 5 },
+    sm: { span: 6 },
   },
   wrapperCol: {
     xs: { span: 24 },
@@ -75,6 +75,28 @@ export class ThriftService extends React.Component<IProps, {}> {
               </div>
             </Panel>
           </Collapse>
+          <FormItem label="Mode" {...formItemLayout}>
+            {getFieldDecorator("proxy", { initialValue: false, rules: [{required: true}] })(
+              <RadioGroup>
+                <Radio value={false}>Server</Radio>
+                <Radio value={true}>Proxy</Radio>
+              </RadioGroup>,
+            )}
+          </FormItem>
+          {getFieldValue("proxy") ?
+            <div>
+              <FormItem label="Remote Host" {...formItemLayout}>
+                {getFieldDecorator("remoteHost", {rules: [{ required: true }]})(
+                  <Input />,
+                )}
+              </FormItem>
+              <FormItem label="Remote Port" {...formItemLayout}>
+                {getFieldDecorator("remotePort", {rules: [{ required: true }]})(
+                  <InputNumber min={0} />,
+                )}
+              </FormItem>
+            </div> : null
+          }
           <FormItem label="Server" {...formItemLayout}>
             {getFieldDecorator("useHttp", { rules: [{ required: true, message: "Choose server type" }] })(
               <RadioGroup onChange={(e) => this.switchHttp(e.target.value)}>

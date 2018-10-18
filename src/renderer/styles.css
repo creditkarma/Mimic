@@ -85,11 +85,70 @@
 
 .json {
   max-height: 700px;
-  min-height: 200px;
 }
 
 .ant-dropdown-menu-submenu-popup {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   max-height: 400px;
   overflow: scroll;  
+}
+
+.no-clients {
+  text-align: center;
+  line-height: 20;
+}
+
+.client-tabs {
+  padding: 10px;
+  height: 100vh;
+}
+
+.client-tabs .client-wrapper {
+  display: flex;
+}
+
+.client-tabs .client {
+  flex-grow: 1;
+}
+
+.client-tabs .url-input {
+  display: flex;
+  flex-grow: 1;
+}
+
+.client-tabs .url-input button {
+  margin-left: 8px;
+  top: -1px;
+}
+
+.client-tabs .scroll-container {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  position: absolute;
+  top: 90px;
+  bottom: 0;
+  right: 0;
+}
+
+.client-tabs .history-list:focus {
+  outline: none;
+}
+
+.client-tabs .history-item {
+  padding: 6px;
+  margin-left: 10px;
+}
+.client-tabs .history-item:hover {
+  background: #e6f7ff;
+  cursor: pointer;
+}
+.client-tabs .history-item span {
+  padding: 2px;
+}
+.client-tabs .success {
+  color: green;
+}
+.client-tabs .error {
+  color: red;
 }

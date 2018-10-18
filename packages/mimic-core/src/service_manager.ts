@@ -21,6 +21,25 @@ export interface IMimicRequest {
   responseValue: any;
 }
 
+export interface IClientAction {
+  request: {
+    id: string;
+    host: string;
+    port: number;
+    path?: string;
+    func: string;
+    args: any;
+    headers?: IUniq<string>;
+    time?: number;
+  };
+  response?: {
+    error?: any;
+    success?: any;
+    headers?: IUniq<string>;
+    time: number;
+  };
+}
+
 export interface IServiceProvider {
   // Create a server from existin config
   create(service: IServiceJson): Server;
@@ -33,6 +52,11 @@ export interface IServiceProvider {
   on(event: "delete", callback: (id: string) => void): this;
 }
 
+export type IClient = (action: IClientAction, callback: (err: Error | null, action: IClientAction) => void) => void;
+export interface IClientProvider {
+  clients: IUniq<IClient>;
+}
+
 /**
  * Services Manager
  *
@@ -43,7 +67,7 @@ export class ServiceManager extends EventEmitter {
   constructor(
     public services: IUniq<IServiceJson>,
     public servers: IUniq<Server> = {},
-    protected providers: IUniq<IServiceProvider> = {},
+    protected providers: IUniq<IServiceProvider & Partial<IClientProvider>> = {},
   ) {
     super();
   }
@@ -176,6 +200,17 @@ export class ServiceManager extends EventEmitter {
       this.enable(id, () => callback(null, action));
     } else {
       this.disable(id, (err) => callback(err, action));
+    }
+  }
+
+  /**
+   * Send request
+   */
+  public request: IClient = (action, callback) => {
+    const {request: {id}} = action;
+    const provider = this.providers[this.services[id].type];
+    if (provider.clients) {
+      provider.clients[id](action, callback);
     }
   }
 

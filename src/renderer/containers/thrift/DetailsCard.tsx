@@ -45,6 +45,22 @@ const DetailsCard: React.SFC<IProps> = ({service}) => (
     <Card.Grid style={gridStyle}>
       <Wrapper title="Protocol">{service.protocol}</Wrapper>
     </Card.Grid>
+    {service.proxy ?
+      <div>
+        <Card.Grid style={gridStyle}>
+          <Wrapper title="Mode">Proxy</Wrapper>
+        </Card.Grid>
+        <Card.Grid style={gridStyle}>
+          <Wrapper title="Remote Host">{service.remoteHost}</Wrapper>
+        </Card.Grid>
+        <Card.Grid style={gridStyle}>
+          <Wrapper title="Remote Port">{service.remotePort}</Wrapper>
+        </Card.Grid>
+      </div> :
+      <Card.Grid style={gridStyle}>
+        <Wrapper title="Mode">Server</Wrapper>
+      </Card.Grid>
+    }
     {service.git ? <Card.Grid style={gridStyle}>
       <Wrapper title="Git">
         <Popover content={`HEAD: ${service.git.head}`}>{service.git.branch}</Popover>

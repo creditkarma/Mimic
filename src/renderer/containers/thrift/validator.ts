@@ -9,7 +9,7 @@ export function validate(
     const errors: string[] = [];
     if (extra && extra.typeId === "enum") {
       const en = def.enums.filter((e) => e.name === extra.class)[0];
-      if (!en.members.some((m) => m.value === data)) { return [" should be member"]; }
+      if (!en.members.some((m) => m.value === Number(data))) { return [` is not ${en.name} member`]; }
     }
     if (type) {
       switch (type.typeId) {
@@ -52,10 +52,10 @@ export function validate(
           if (!(data instanceof Object)) { return [" should be Object"]; }
           Object.entries(data).forEach(([k, v]) => {
             validate(k, def, type.keyTypeId, type.keyType, type.keyExtra).forEach((err) => {
-              errors.push(`key${err}`);
+              errors.push(`."${k}"${err}`);
             });
             validate(v, def, type.valueTypeId, type.valueType, type.valueExtra).forEach((err) => {
-              errors.push(`value${err}`);
+              errors.push(`.${k}${err}`);
             });
           });
           return errors;
@@ -73,7 +73,7 @@ export function validate(
       case "i32":
       case "i64":
       case "double":
-        return dataType === "number" ? [] : [" should be number"];
+        return isNaN(Number(data)) ? [" should be number"] : [];
       case "string":
         return dataType === "string" ? [] : [" should be string"];
       default:

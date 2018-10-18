@@ -1,5 +1,6 @@
 import * as thrift from "thrift";
 import { inherits } from "util";
+import { createClient } from "./client";
 import * as ThriftFile from "./file";
 import { readArg, readStruct, writeStruct } from "./struct";
 const { Thrift } = thrift;
@@ -8,6 +9,7 @@ export function addService(serv: ThriftFile.IService, ns: any, def: ThriftFile.I
   serv.functions.forEach((f) => addArgsFunction(f, serv.name, ns));
   serv.functions.forEach((f) => addResultFunction(f, serv.name, ns));
   return {
+    Client: createClient(serv, ns),
     Processor: addProcessor(serv, ns, def),
   };
 }
