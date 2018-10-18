@@ -5,9 +5,9 @@
   "contributors": [
     "Volodymyr Ladnik"
   ],
-  "private": true,
   "version": "2.0.0",
   "license": "Apache-2.0",
+  "repository": "github:creditkarma/Mimic",
   "scripts": {
     "lerna": "lerna bootstrap && lerna run build",
     "dev": "electron-webpack dev",
@@ -104,5 +104,8 @@
     "mac": {
       "category": "public.app-category.developer-tools"
     }
+  },
+  "publish": {
+    "provider": "github"
   }
 }
