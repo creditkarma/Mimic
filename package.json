@@ -8,6 +8,7 @@
   "version": "2.0.0",
   "license": "Apache-2.0",
   "repository": "github:creditkarma/Mimic",
+  "private": true,
   "scripts": {
     "lerna": "lerna bootstrap && lerna run build",
     "dev": "electron-webpack dev",
