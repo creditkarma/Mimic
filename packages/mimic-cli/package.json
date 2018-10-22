@@ -22,8 +22,8 @@
     "mimic": "./bin/mimic.js"
   },
   "dependencies": {
-    "@creditkarma/mimic-core": "2.0.0",
-    "@creditkarma/mimic-rest": "2.0.0",
-    "@creditkarma/mimic-thrift": "2.0.0"
+    "@creditkarma/mimic-core": "^2.0.0",
+    "@creditkarma/mimic-rest": "^2.0.0",
+    "@creditkarma/mimic-thrift": "^2.0.0"
   }
 }
