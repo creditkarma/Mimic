@@ -8,16 +8,17 @@
   "version": "2.0.0",
   "license": "Apache-2.0",
   "repository": "github:creditkarma/Mimic",
+  "private": true,
   "scripts": {
     "lerna": "lerna bootstrap && lerna run build",
+    "publish": "lerna publish",
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
     "dist:all": "yarn compile && electron-builder -mlw",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "test": "jest",
-    "test:ci": "jest --coverage",
-    "postinstall": "electron-webpack dll"
+    "test:ci": "jest --ci --coverage"
   },
   "dependencies": {
     "@creditkarma/mimic-cli": "2.0.0",
@@ -43,6 +44,7 @@
     "electron-webpack": "2.2.1",
     "electron-webpack-ts": "^2.0.2",
     "jest": "^23.2.0",
+    "jest-junit": "^5.2.0",
     "lerna": "^3.0.0-rc.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -74,6 +76,10 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -85,17 +91,7 @@
   },
   "electronWebpack": {
     "renderer": {
-      "webpackConfig": "webpack.renderer.additions.js",
-      "dll": [
-        "antd",
-        "react",
-        "react-dom",
-        "react-redux",
-        "react-router",
-        "react-router-dom",
-        "react-virtualized",
-        "redux"
-      ]
+      "webpackConfig": "webpack.renderer.additions.js"
     }
   },
   "build": {
