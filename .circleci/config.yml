@@ -5,7 +5,7 @@ jobs:
       CC_TEST_REPORTER_ID: 4bb367d28fc1fbce41a9215c405f35f84054ce5119f8b162a54cd8d9b244a942
     working_directory: ~/repo
     docker:
-      - image: circleci/node:10.12
+      - image: electronuserland/builder:wine
     steps:
       - checkout
       # Restore node_modules
@@ -13,13 +13,13 @@ jobs:
           key: v1-js-dependencies-{{ checksum "yarn.lock" }}
       # Install dependencies
       - run: yarn install
-      # Setup packages
-      - run: yarn lerna
       # Save cache
       - save_cache:
           key: v1-js-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+      # Setup packages
+      - run: yarn lerna
       - run:
           name: Run tests with JUnit and CodeClimate reporters
           command: |
@@ -40,7 +40,7 @@ jobs:
   publish:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:10.12
+      - image: electronuserland/builder:wine
     steps:
       - attach_workspace:
           at: ~/repo
@@ -50,9 +50,27 @@ jobs:
       - run:
           name: Publish package
           command: yarn publish
+      # Restore electron packages
+      - restore_cache:
+          key: electron-prebuilt
       - run:
           name: Build Desktop application
           command: yarn dist:all
+          environment:
+            ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: "true"
+            ELECTRON_CACHE: /root/.cache/electron
+            ELECTRON_BUILDER_CACHE: /root/.cache/electron-builder
+       # Save cache
+      - save_cache:
+          key: electron-prebuilt
+          paths:
+            - /root/.cache/
+      - run:
+          name: Upload artifacts to Release page
+          command: |
+            curl -L https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_linux_386.tar.gz | tar xzO *ghr > ghr
+            chmod +x ./ghr
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./dist/{Mimic,latest}*
       - store_artifacts:
           path: dist
 

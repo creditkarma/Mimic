@@ -3,6 +3,7 @@
 
 ![Mimic](./build/icon.png)
 
+
 ## What exactly is Mimic?
 
 It’s a set of [NPM libraries](https://www.npmjs.com/search?q=@creditkarma/mimic), [CLI tool](https://www.npmjs.com/package/@creditkarma/mimic-cli) and [Desktop](../../releases) application built around the idea of faking real service by implementing it’s contract.
@@ -32,9 +33,7 @@ git clone git@github.com:creditkarma/Mimic.git
 yarn
 
 # Compile local packages
-npm install --global lerna
-lerna bootstrap
-lerna run build
+yarn lerna
 ```
 
 ### Development Scripts
