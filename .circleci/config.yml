@@ -1,13 +1,75 @@
 version: 2
 jobs:
-  build-and-test:
-    macos:
-      xcode: "10.0"
+  test:
+    environment:
+      CC_TEST_REPORTER_ID: 4bb367d28fc1fbce41a9215c405f35f84054ce5119f8b162a54cd8d9b244a942
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10.12
     steps:
       - checkout
+      # Restore node_modules
+      - restore_cache:
+          key: v1-js-dependencies-{{ checksum "yarn.lock" }}
+      # Install dependencies
+      - run: yarn install
+      # Setup packages
+      - run: yarn lerna
+      # Save cache
+      - save_cache:
+          key: v1-js-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - run:
+          name: Run tests with JUnit and CodeClimate reporters
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter before-build
+            yarn test:ci
+            ./cc-test-reporter after-build -t lcov --exit-code $?
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/junit
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+  publish:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10.12
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: yarn publish
+      - run:
+          name: Build Desktop application
+          command: yarn dist:all
+      - store_artifacts:
+          path: dist
 
 workflows:
   version: 2
-  build-and-test:
+  test-and-publish:
     jobs:
-      - build-and-test
+      - test:
+          filters:
+            tags:
+              only: /^v.*/
+      - publish:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+

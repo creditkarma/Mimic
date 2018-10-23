@@ -18,10 +18,13 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/creditkarma/Mimic/tree/master/packages/mimic-graphql",
   "dependencies": {
-    "@creditkarma/mimic-core": "2.0.0",
+    "@creditkarma/mimic-core": "^2.0.0",
     "graphql": "^0.10.0"
   },
   "devDependencies": {
     "@types/graphql": "^0.13.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
