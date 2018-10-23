@@ -64,7 +64,7 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-      - deploy:
+      - publish:
           requires:
             - test
           filters:
