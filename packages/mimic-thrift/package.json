@@ -24,5 +24,8 @@
   },
   "devDependencies": {
     "@types/thrift": "^0.10.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

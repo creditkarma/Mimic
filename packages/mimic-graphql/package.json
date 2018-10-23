@@ -23,5 +23,8 @@
   },
   "devDependencies": {
     "@types/graphql": "^0.13.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
