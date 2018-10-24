@@ -5,7 +5,7 @@
   "contributors": [
     "Volodymyr Ladnik"
   ],
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "Apache-2.0",
   "repository": "github:creditkarma/Mimic",
   "private": true,
@@ -21,11 +21,11 @@
     "test:ci": "jest --ci --coverage"
   },
   "dependencies": {
-    "@creditkarma/mimic-cli": "2.0.1",
-    "@creditkarma/mimic-core": "2.0.1",
-    "@creditkarma/mimic-graphql": "2.0.1",
-    "@creditkarma/mimic-rest": "2.0.1",
-    "@creditkarma/mimic-thrift": "2.0.1",
+    "@creditkarma/mimic-cli": "2.0.2",
+    "@creditkarma/mimic-core": "2.0.2",
+    "@creditkarma/mimic-graphql": "2.0.2",
+    "@creditkarma/mimic-rest": "2.0.2",
+    "@creditkarma/mimic-thrift": "2.0.2",
     "electron-updater": "^3.0.3",
     "source-map-support": "^0.5.0"
   },
