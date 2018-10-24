@@ -1,6 +1,6 @@
 {
   "name": "@creditkarma/mimic-thrift",
-  "description": "Sservice Impersonator: Thrift support",
+  "description": "Service Impersonator: Thrift support",
   "homepage": "https://github.com/creditkarma/Mimic",
   "author": "Credit Karma Inc.",
   "contributors": [

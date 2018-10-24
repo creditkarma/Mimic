@@ -8,7 +8,7 @@
   ],
   "version": "2.0.2",
   "files": [
-    "bin/cli.js",
+    "bin",
     "dist"
   ],
   "scripts": {
