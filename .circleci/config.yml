@@ -12,7 +12,7 @@ jobs:
       - restore_cache:
           key: v1-js-dependencies-{{ checksum "yarn.lock" }}
       # Install dependencies
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
       # Save cache
       - save_cache:
           key: v1-js-dependencies-{{ checksum "yarn.lock" }}
