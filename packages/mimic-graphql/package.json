@@ -6,7 +6,7 @@
   "contributors": [
     "Volodymyr Ladnik"
   ],
-  "version": "2.0.2",
+  "version": "2.0.3",
   "files": [
     "dist"
   ],
@@ -18,7 +18,7 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/creditkarma/Mimic/tree/master/packages/mimic-graphql",
   "dependencies": {
-    "@creditkarma/mimic-core": "^2.0.2",
+    "@creditkarma/mimic-core": "^2.0.3",
     "graphql": "^0.10.0"
   },
   "devDependencies": {
