@@ -50,6 +50,9 @@ yarn dist
 
 # `yarn compile` & create unpacked build with electron-builder
 yarn dist:dir
+
+# conventional commit helper
+yarn commit
 ```
 
 ## Contributing

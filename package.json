@@ -18,7 +18,8 @@
     "dist:all": "yarn compile && electron-builder -mlw",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "test": "jest",
-    "test:ci": "jest --ci --coverage"
+    "test:ci": "jest --ci --coverage",
+    "commit": "npx git-cz"
   },
   "dependencies": {
     "@creditkarma/mimic-cli": "2.0.3",
