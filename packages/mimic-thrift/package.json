@@ -1,12 +1,12 @@
 {
   "name": "@creditkarma/mimic-thrift",
-  "description": "Sservice Impersonator: Thrift support",
+  "description": "Service Impersonator: Thrift support",
   "homepage": "https://github.com/creditkarma/Mimic",
   "author": "Credit Karma Inc.",
   "contributors": [
     "Volodymyr Ladnik"
   ],
-  "version": "2.0.2",
+  "version": "2.0.3",
   "files": [
     "dist"
   ],
@@ -18,7 +18,7 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/creditkarma/Mimic/tree/master/packages/mimic-thrift",
   "dependencies": {
-    "@creditkarma/mimic-core": "^2.0.2",
+    "@creditkarma/mimic-core": "^2.0.3",
     "@creditkarma/thrift-parser": "^1.0.6",
     "thrift": "^0.11.0"
   },

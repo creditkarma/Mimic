@@ -1,4 +1,5 @@
 import { app, BrowserWindow, Menu } from "electron";
+import * as log from "electron-log";
 import { autoUpdater } from "electron-updater";
 
 import "./dispatcher";
@@ -69,6 +70,8 @@ app.on("activate", () => {
 app.on("ready", () => {
   mainWindow = createMainWindow();
   Menu.setApplicationMenu(menu);
+  log.transports.file.level = "debug";
+  autoUpdater.logger = log;
   autoUpdater.checkForUpdatesAndNotify();
   process.env.MIMIC_VERSION = app.getVersion();
 });

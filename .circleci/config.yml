@@ -3,16 +3,16 @@ jobs:
   test:
     environment:
       CC_TEST_REPORTER_ID: 4bb367d28fc1fbce41a9215c405f35f84054ce5119f8b162a54cd8d9b244a942
-    working_directory: ~/repo
-    docker:
-      - image: electronuserland/builder:wine
+    macos:
+      xcode: "10.0.0"
+    working_directory: /Users/distiller/project
     steps:
       - checkout
       # Restore node_modules
       - restore_cache:
           key: v1-js-dependencies-{{ checksum "yarn.lock" }}
       # Install dependencies
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
       # Save cache
       - save_cache:
           key: v1-js-dependencies-{{ checksum "yarn.lock" }}
@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Run tests with JUnit and CodeClimate reporters
           command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
             yarn test:ci
@@ -35,15 +35,15 @@ jobs:
       - store_artifacts:
           path: reports/junit
       - persist_to_workspace:
-          root: ~/repo
+          root: /Users/distiller/project
           paths: .
   publish:
-    working_directory: ~/repo
-    docker:
-      - image: electronuserland/builder:wine
+    macos:
+      xcode: "10.0.0"
+    working_directory: /Users/distiller/project
     steps:
       - attach_workspace:
-          at: ~/repo
+          at: /Users/distiller/project
       - run:
           name: Authenticate with registry
           command: echo "//registry.yarnpkg.com/:_authToken=$npm_TOKEN" > ~/.npmrc
@@ -58,19 +58,13 @@ jobs:
           command: yarn dist:all
           environment:
             ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: "true"
-            ELECTRON_CACHE: /root/.cache/electron
-            ELECTRON_BUILDER_CACHE: /root/.cache/electron-builder
+            ELECTRON_CACHE: /Users/distiller/cache/electron
+            ELECTRON_BUILDER_CACHE: /Users/distiller/cache/electron-builder
        # Save cache
       - save_cache:
           key: electron-prebuilt
           paths:
-            - /root/.cache/
-      - run:
-          name: Upload artifacts to Release page
-          command: |
-            curl -L https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_linux_386.tar.gz | tar xzO *ghr > ghr
-            chmod +x ./ghr
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./dist/{Mimic,latest}*
+            - /Users/distiller/cache
       - store_artifacts:
           path: dist
 
