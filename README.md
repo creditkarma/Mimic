@@ -10,15 +10,15 @@ It’s a set of [NPM libraries](https://www.npmjs.com/search?q=@creditkarma/mimi
 
 So why would you need this tool in the first place? Though faking services is pretty trivial, but you still need to provide responses for every endpoint. Mimic on the contrary can read your service definition and generate responses for you. Check out [Wiki](../../wiki) with detailed instructions.
 
-Supported service protols:
+Supported service protocols:
 - [x] [GraphQL](https://www.graphql.org/)
 - [x] [Apache Thrift](https://thrift.apache.org/)
 - [x] [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) (to support legacy services)
 
-Supported client protols:
+Supported client protocols:
 - [x] [Apache Thrift](https://thrift.apache.org/)
 
-Supported proxy protols:
+Supported proxy protocols:
 - [x] [Apache Thrift](https://thrift.apache.org/)
 
 ## Development
