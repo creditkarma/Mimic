@@ -14,6 +14,7 @@ import {
   TCompactProtocol,
   TFramedTransport,
   TJSONProtocol,
+  Thrift
 } from "thrift";
 
 import {
@@ -263,10 +264,12 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider, IC
           }
         });
       } else {
+        
         const { data, exception } = this.respManager.find(id)[func.name] || {
-          data: generateThriftResponse(func.returnTypeId, def, func.returnType, func.returnExtra),
-          exception: undefined,
+          data: undefined, //generateThriftResponse(func.returnTypeId, def, func.returnType, func.returnExtra),
+          exception:  new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, "Mimic cannot find the method")
         };
+
         // Return data
         callback(data, exception);
         // Emit request
