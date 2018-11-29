@@ -266,8 +266,8 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider, IC
       } else {
         
         const { data, exception } = this.respManager.find(id)[func.name] || {
-          data: undefined, //generateThriftResponse(func.returnTypeId, def, func.returnType, func.returnExtra),
-          exception:  new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, "Mimic cannot find the method")
+          data: new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, `Mimic: no method found named:${func.name}`),
+          exception: undefined
         };
 
         // Return data
