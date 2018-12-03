@@ -9,11 +9,11 @@ import {
   createHttpConnection,
   createServer,
   createWebServer,
-  Thrift,
   TBinaryProtocol,
   TBufferedTransport,
   TCompactProtocol,
   TFramedTransport,
+  Thrift,
   TJSONProtocol,
 } from "thrift";
 
