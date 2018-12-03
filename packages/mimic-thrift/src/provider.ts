@@ -9,10 +9,10 @@ import {
   createHttpConnection,
   createServer,
   createWebServer,
+  Thrift,
   TBinaryProtocol,
   TBufferedTransport,
   TCompactProtocol,
-  Thrift,
   TFramedTransport,
   TJSONProtocol,
 } from "thrift";
@@ -264,7 +264,6 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider, IC
           }
         });
       } else {
-        
         const { data, exception } = this.respManager.find(id)[func.name] || {
           data: new Thrift.TApplicationException(
             Thrift.TApplicationExceptionType.MISSING_RESULT,
