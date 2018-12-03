@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@creditkarma/mimic-core": "^2.0.3",
+    "@creditkarma/mimic-graphql": "^2.0.3",
     "@creditkarma/mimic-rest": "^2.0.3",
     "@creditkarma/mimic-thrift": "^2.0.3"
   },
