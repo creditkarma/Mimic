@@ -1,9 +1,11 @@
-import { IMimicRequest, IServiceJson, IServiceProvider, ResponseManager } from "@creditkarma/mimic-core";
+import { IBaseResponseManager, IMimicRequest, IServiceJson, IServiceProvider } from "@creditkarma/mimic-core";
 import { EventEmitter } from "events";
 import { createServer, IncomingMessage, ServerResponse } from "http";
 import { Server } from "net";
 import { parse } from "url";
 import RouterTree from "./router";
+
+interface IEventedResponseManager extends IBaseResponseManager, EventEmitter {}
 
 /**
  * REST Service Provider
@@ -11,10 +13,8 @@ import RouterTree from "./router";
  * @class RestProvider
  */
 export class RestProvider extends EventEmitter implements IServiceProvider {
-  private respManager: ResponseManager;
-
   // Initialize
-  constructor(respManager: ResponseManager) {
+  constructor(private respManager: IEventedResponseManager) {
     super();
     this.respManager = respManager;
     // Remove responses

@@ -5,12 +5,18 @@ import { deleteConfig, writeConfig } from "./config";
 import { IUniq, pick, toCallback } from "./utils";
 
 export type IResponses = IUniq<IUniq<any>>;
+
+// Base Response manager for providers
+export interface IBaseResponseManager {
+  find: (id: string) => IUniq<any>;
+  delete: (id: string, callback?: (err: Error | null) => null) => void;
+}
 /**
  * Responses Manager
  *
  * @class ResponseManager
  */
-export class ResponseManager extends EventEmitter {
+export class ResponseManager extends EventEmitter implements IBaseResponseManager {
   constructor(public responses: IResponses = {}) {
     super();
   }
