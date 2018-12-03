@@ -12,9 +12,9 @@ import {
   TBinaryProtocol,
   TBufferedTransport,
   TCompactProtocol,
+  Thrift,
   TFramedTransport,
   TJSONProtocol,
-  Thrift
 } from "thrift";
 
 import {
@@ -266,7 +266,9 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider, IC
       } else {
         
         const { data, exception } = this.respManager.find(id)[func.name] || {
-          data: new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, `Mimic: no method found named:${func.name}`),
+          data: new Thrift.TApplicationException(
+            Thrift.TApplicationExceptionType.MISSING_RESULT,
+            `Mimic: no method found named:${func.name}`),
           exception: undefined,
         };
 
