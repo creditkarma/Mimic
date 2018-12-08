@@ -107,9 +107,16 @@ function addProcessFunc(f: ThriftFile.IFunction, service: string, ns: any, def: 
       args.read(input);
       input.readMessageEnd();
       this._handler(f, args, (data: any, exception?: string) => {
+        let resultObj: any;
         if (f.oneway) { return; }
-        const resultObj = new ns[`${service}_${f.name}_result`](exception ? ns[exception](data) : {success: data});
-        output.writeMessageBegin(f.name, Thrift.MessageType.REPLY, seqid);
+        if (data instanceof Thrift.TApplicationException) {
+          resultObj = data;
+          output.writeMessageBegin(f.name, Thrift.MessageType.EXCEPTION, seqid);
+        } else {
+          const obj = exception ? new ns[exception](data) : {success: data};
+          resultObj = new ns[`${service}_${f.name}_result`](obj);
+          output.writeMessageBegin(f.name, Thrift.MessageType.REPLY, seqid);
+        }
         resultObj.write(output);
         output.writeMessageEnd();
         output.flush();

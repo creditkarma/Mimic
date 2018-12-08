@@ -32,7 +32,7 @@ import {
   toCallback,
   writeConfig,
 } from "@creditkarma/mimic-core";
-import { buildServiceAPI, formatThrift, generateThriftResponse, ThriftFile, ThriftParser } from "./index";
+import { buildServiceAPI, formatThrift, ThriftFile, ThriftParser } from "./index";
 
 // Thrift Service definition
 export interface IThriftServiceJson extends IServiceJson {
@@ -246,7 +246,6 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider, IC
    */
   private handler = (params: IThriftServiceJson) => {
     const {id, proxy, remoteHost, remotePort, url} = params;
-    const def = this.thrift[id];
     return (func: ThriftFile.IFunction, args: any, callback: (data: any, excep?: string) => void) => {
       if (proxy) {
         const request = {id, host: remoteHost!, port: remotePort!, path: url,
@@ -264,18 +263,28 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider, IC
           }
         });
       } else {
-        const { data, exception } = this.respManager.find(id)[func.name] || {
-          data: new Thrift.TApplicationException(
-            Thrift.TApplicationExceptionType.MISSING_RESULT,
-            `Mimic: no method found named:${func.name}`),
-          exception: undefined,
-        };
-
+        const { data, exception } = this.respManager.find(id)[func.name] || this.missingResult(func);
         // Return data
         callback(data, exception);
         // Emit request
         this.emitRequest(id, func, args, data, exception);
       }
+    };
+  }
+
+  /**
+   * Generate an error when response is expected, but not set
+   */
+  private missingResult = (func: ThriftFile.IFunction) => {
+    if (func.returnTypeId === "void") {
+      return {data: null, exception: null};
+    }
+    return {
+      data: new Thrift.TApplicationException(
+        Thrift.TApplicationExceptionType.MISSING_RESULT,
+        `Mimic: no data found for function '${func.name}'`,
+      ),
+      exception: "MISSING_RESULT",
     };
   }
 
