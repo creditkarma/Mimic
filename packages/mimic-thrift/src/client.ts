@@ -55,10 +55,7 @@ export function createClient(service: ThriftFile.IService, ns: any) {
           return callback(result[key]);
         }
       }
-      if (success !== null) {
-        return callback(null, success);
-      }
-      return callback(new Error("request failed: unknown result"));
+      return callback(null, success);
     };
   });
   return client;
