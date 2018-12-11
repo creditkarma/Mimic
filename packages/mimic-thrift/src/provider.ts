@@ -20,6 +20,7 @@ import {
 import {
   deleteConfig,
   detectGit,
+  IBaseResponseManager,
   IClient,
   IClientProvider,
   IGit,
@@ -28,7 +29,6 @@ import {
   IServiceProvider,
   IUniq,
   pick,
-  ResponseManager,
   toCallback,
   writeConfig,
 } from "@creditkarma/mimic-core";
@@ -77,16 +77,12 @@ export class ThriftProvider extends EventEmitter implements IServiceProvider, IC
     Json: TJSONProtocol,
     Compact: TCompactProtocol,
   };
-  public thrift: IUniq<ThriftFile.IJSON>;
   public clients: IUniq<IClient> = {};
   private headers: IUniq<any> = {};
-  private respManager: ResponseManager;
 
   // Initialize
-  constructor(thrift: IUniq<ThriftFile.IJSON>, respManager: ResponseManager) {
+  constructor(private thrift: IUniq<ThriftFile.IJSON>, private respManager: IBaseResponseManager) {
     super();
-    this.thrift = thrift;
-    this.respManager = respManager;
     // Remove responses
     this.on("delete", (id) => this.delete(id));
   }
