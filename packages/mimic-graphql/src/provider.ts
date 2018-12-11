@@ -1,6 +1,7 @@
 import {
   deleteConfig,
   detectGit,
+  IBaseResponseManager,
   IGit,
   IMimicRequest,
   IServiceJson,
@@ -9,7 +10,6 @@ import {
   mapValues,
   pick,
   readRecursively,
-  ResponseManager,
   toCallback,
   writeConfig,
 } from "@creditkarma/mimic-core";
@@ -50,7 +50,7 @@ export class GraphQLProvider extends EventEmitter implements IServiceProvider {
   public introSchemas: IUniq<IGraphqlTypes> = {};
 
   // Initialize
-  constructor(private schemas: IUniq<string>, private respManager: ResponseManager) {
+  constructor(private schemas: IUniq<string>, private respManager: IBaseResponseManager) {
     super();
     this.gqlSchemas = mapValues(this.schemas, (s) => {
       const schema = gql.buildSchema(s);
