@@ -52,24 +52,7 @@ export class GraphQLProvider extends EventEmitter implements IServiceProvider {
   // Initialize
   constructor(private schemas: IUniq<string>, private respManager: IBaseResponseManager) {
     super();
-    this.gqlSchemas = mapValues(this.schemas, (s) => {
-      const schema = gql.buildSchema(s);
-      // Provide type resolvers
-      Object.values(schema.getTypeMap()).forEach((type) => {
-        switch (true) {
-        case type instanceof gql.GraphQLInterfaceType:
-          (type as gql.GraphQLInterfaceType).resolveType = (v) => v.__type;
-          break;
-        case type instanceof gql.GraphQLUnionType:
-          (type as gql.GraphQLUnionType).resolveType = (v) => v.__type;
-          break;
-        case type instanceof gql.GraphQLScalarType:
-          (type as gql.GraphQLScalarType).serialize = (v) => v;
-          break;
-        }
-      });
-      return schema;
-    });
+    this.gqlSchemas = mapValues(this.schemas, this.buildSchema);
     // Remove responses and GraphQL file
     this.on("delete", (id) => this.delete(id));
   }
@@ -122,7 +105,7 @@ export class GraphQLProvider extends EventEmitter implements IServiceProvider {
       if (contents) {
         const content = Object.values(contents).join("\n");
         this.schemas[id] = content;
-        this.gqlSchemas[id] = gql.buildSchema(content);
+        this.gqlSchemas[id] = this.buildSchema(content);
         const file = path.join("graphql", `${service.id}.graphql`);
         toCallback(writeConfig(file, content), (writeErr) => {
           callback(writeErr, this.create(service));
@@ -170,6 +153,26 @@ export class GraphQLProvider extends EventEmitter implements IServiceProvider {
     // Delete GraphQL file
     delete this.gqlSchemas[id];
     deleteConfig(path.join("graphql", `${id}.graphql`));
+  }
+
+  // Build schema and define type resolvers
+  private buildSchema = (input: string) => {
+    const schema = gql.buildSchema(input);
+    // Provide type resolvers
+    Object.values(schema.getTypeMap()).forEach((type) => {
+      switch (true) {
+      case type instanceof gql.GraphQLInterfaceType:
+        (type as gql.GraphQLInterfaceType).resolveType = (v) => v.__type;
+        break;
+      case type instanceof gql.GraphQLUnionType:
+        (type as gql.GraphQLUnionType).resolveType = (v) => v.__type;
+        break;
+      case type instanceof gql.GraphQLScalarType:
+        (type as gql.GraphQLScalarType).serialize = (v) => v;
+        break;
+      }
+    });
+    return schema;
   }
 
   /**
