@@ -191,7 +191,10 @@ export class Documentation extends React.PureComponent<IProps, IState> {
   public func = (service: string, f: ThriftFile.IFunction, i: number) =>
     <div className="definition" key={i}>
       <h4>Function: {service}.{f.name}</h4>
-      <pre><code>{this.formatType(f.returnTypeId, f.returnType, f.returnExtra)}</code> {f.name}
+      <pre>
+        <code>
+          {f.oneway ? "oneway " : ""}{this.formatType(f.returnTypeId, f.returnType, f.returnExtra)} {f.name}
+        </code>
         ({this.args(f.arguments)}) {f.exceptions.length > 0 ? "throws" : ""} {this.args(f.exceptions)}
       </pre>
       {f.doc ? <pre>{f.doc}</pre> : null}

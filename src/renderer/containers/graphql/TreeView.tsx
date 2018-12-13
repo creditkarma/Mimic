@@ -15,6 +15,7 @@ interface IProps {
 interface ILevelProps extends IProps {
   name: string;
   required: boolean;
+  prefix: string;
   onDelete: () => void;
 }
 
@@ -36,7 +37,7 @@ const LevelMenu: React.SFC<IMenuProps> = (props) => {
       const used = new Set(Object.keys(keys));
       const avail = fields.filter((f) => !used.has(f.name));
       if (avail.length > 0) {
-        items.push(<SubMenu title="Add child">
+        items.push(<SubMenu title="Add child" key="add">
           {avail.sort((a, b) => a.name.localeCompare(b.name)).map((field) =>
             <Menu.Item key={field.name}>
               <a onClick={() => onChange({
@@ -50,7 +51,7 @@ const LevelMenu: React.SFC<IMenuProps> = (props) => {
       if (schema.kind === "INTERFACE" || schema.kind === "UNION") {
         const possibleTypes = types[schema.kind][schema.name].possibleTypes.filter((t) => t.name !== __type);
         if (possibleTypes.length > 0) {
-          items.push(<SubMenu title="Replace">
+          items.push(<SubMenu title="Replace" key="replace">
             {possibleTypes.map((type) =>
               <Menu.Item key={type.name}>
                 <a onClick={() => onChange(generateGraphqlResponse(types, type, false))}>
@@ -63,7 +64,7 @@ const LevelMenu: React.SFC<IMenuProps> = (props) => {
       }
       break;
     case "LIST":
-      items.push(<Menu.Item key="add_child">
+      items.push(<Menu.Item key="add">
         <a onClick={() => onChange([...data,
           generateGraphqlResponse(types, schema.ofType, false),
         ])}>Add Child</a>
@@ -75,7 +76,7 @@ const LevelMenu: React.SFC<IMenuProps> = (props) => {
   const menu = (
     <Menu>
       {items}
-      <Menu.Item disabled={required}>{required ? "Remove" : <a onClick={onDelete}>Remove</a>}</Menu.Item>
+      <Menu.Item key="remove" disabled={required}>{required ? "Remove" : <a onClick={onDelete}>Remove</a>}</Menu.Item>
     </Menu>);
   return (
     <Dropdown overlay={menu} trigger={["click"]}>
@@ -146,7 +147,7 @@ const Title: React.SFC<ILevelProps> = (props) => {
 };
 
 const Level: React.SFC<ILevelProps> = (props) => {
-  const { types, name, data, onChange, schema } = props;
+  const { types, data, onChange, schema, prefix } = props;
   switch (schema.kind) {
     case "OBJECT":
     case "INTERFACE":
@@ -154,8 +155,8 @@ const Level: React.SFC<ILevelProps> = (props) => {
       const {__type, ...keys} = data;
       const fields = types.OBJECT[__type].fields;
       return (
-        <TreeNode title={<Title {...props} />} key={name} selectable={false}>
-          {Object.keys(keys).sort().map((key) => {
+        <TreeNode title={<Title {...props} />} key={prefix} selectable={false}>
+          {Object.keys(keys).sort().map((key, index) => {
             let { type } = fields.find((f) => f.name === key)!;
             let required = false;
             if (type.kind === "NON_NULL") {
@@ -163,7 +164,7 @@ const Level: React.SFC<ILevelProps> = (props) => {
               type = type.ofType;
             }
             return Level({
-              name: key, required, types, data: data[key], schema: type,
+              name: key, required, types, data: data[key], schema: type, prefix: prefix + index,
               onChange: (d: any) => onChange({ ...data, [key]: d }),
               onDelete: () => {
                 const { [key]: deleted, ...rest } = data;
@@ -174,10 +175,10 @@ const Level: React.SFC<ILevelProps> = (props) => {
         </TreeNode>);
     case "LIST":
       return (
-        <TreeNode title={<Title {...props} />} key={name} selectable={false}>
+        <TreeNode title={<Title {...props} />} key={prefix} selectable={false}>
           {data.map((el: any, index: number) => {
             return Level({
-              name: index.toString(), required: false, types, data: el, schema: schema.ofType,
+              name: index.toString(), required: false, types, data: el, schema: schema.ofType, prefix: prefix + index,
               onChange: (d: any) => onChange(Object.assign([...data], { [index]: d })),
               onDelete: () => onChange(data.filter((e: any, i: number) => i !== index)),
             });
@@ -185,15 +186,15 @@ const Level: React.SFC<ILevelProps> = (props) => {
         </TreeNode>);
     case "ENUM":
     case "SCALAR":
-      return <TreeNode title={<Title {...props} />} key={name} selectable={false} isLeaf />;
+      return <TreeNode title={<Title {...props} />} key={prefix} selectable={false} isLeaf />;
     case "NON_NULL":
       return Level({ ...props, schema: schema.ofType});
   }
 };
 
 export const TreeView: React.SFC<IProps> = (props) =>
-  <Tree showLine defaultExpandedKeys={["root"]} className="tree-view">
-    {Level({ ...props, name: "root", required: true, onDelete: () => null })}
+  <Tree showLine defaultExpandedKeys={["."]} className="tree-view">
+    {Level({ ...props, name: "root", prefix: ".", required: true, onDelete: () => null })}
   </Tree>;
 
 export default TreeView;
