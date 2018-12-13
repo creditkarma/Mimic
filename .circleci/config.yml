@@ -55,12 +55,14 @@ jobs:
           key: electron-prebuilt
       - run:
           name: Build Desktop application
-          command: yarn dist:all
+          command: |
+            yarn dist:all
+            yarn release:body
           environment:
             ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: "true"
             ELECTRON_CACHE: /Users/distiller/cache/electron
             ELECTRON_BUILDER_CACHE: /Users/distiller/cache/electron-builder
-       # Save cache
+      # Save cache
       - save_cache:
           key: electron-prebuilt
           paths:
