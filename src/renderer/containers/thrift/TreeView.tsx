@@ -33,6 +33,7 @@ const typeClass = (type?: ThriftFile.Type): string | null => {
 interface ILevelProps extends IProps {
   name: string;
   required: boolean;
+  prefix: string;
   onDelete: () => void;
 }
 
@@ -55,7 +56,7 @@ const LevelMenu: React.SFC<IMenuProps> = (props) => {
         const fields = struct.fields.filter((f) => !used.has(f.name));
         if (fields.length === 0) { break; }
         if (type.typeId === "union") {
-          items = <SubMenu title="Replace child">
+          items = <SubMenu title="Replace child" key="replace">
             {fields.map((field) =>
               <Menu.Item key={field.key}>
                 <a onClick={() => onChange({
@@ -65,7 +66,7 @@ const LevelMenu: React.SFC<IMenuProps> = (props) => {
             )}
           </SubMenu>;
         } else {
-          items = <SubMenu title="Add child">
+          items = <SubMenu title="Add child" key="add">
             {fields.map((field) =>
               <Menu.Item key={field.key}>
                 <a onClick={() => onChange({
@@ -79,14 +80,14 @@ const LevelMenu: React.SFC<IMenuProps> = (props) => {
         break;
       case "set":
       case "list":
-        items = <Menu.Item key="add_child">
+        items = <Menu.Item key="add">
           <a onClick={() => onChange([...data,
           generateThriftResponse(type.elemTypeId, thrift, type.elemType, type.extra),
           ])}>Add Child</a>
         </Menu.Item>;
         break;
       case "map":
-        items = <Menu.Item key="add_child">
+        items = <Menu.Item key="add">
           <a onClick={() => askFieldName((name) => {
             onChange({
               ...data,
@@ -194,7 +195,7 @@ const Title: React.SFC<ILevelProps> = (props) => {
 };
 
 const Level: React.SFC<ILevelProps> = (props) => {
-  const { thrift, name, data, onChange, type: { type, typeId } } = props;
+  const { thrift, data, onChange, type: { type, typeId }, prefix } = props;
   if (type) {
     switch (type.typeId) {
       case "exception":
@@ -202,12 +203,12 @@ const Level: React.SFC<ILevelProps> = (props) => {
       case "union":
         const struct = thrift.structs.filter((s) => s.name === type.class)[0];
         return (
-          <TreeNode title={<Title {...props} />} key={name} selectable={false}>
-            {Object.keys(data).sort().map((key) => {
+          <TreeNode title={<Title {...props} />} key={prefix} selectable={false}>
+            {Object.keys(data).sort().map((key, index) => {
               const field = struct.fields.filter((f) => f.name === key)[0];
               const required = type.typeId === "union" || field.required !== "optional";
               return Level({
-                name: key, required, thrift, data: data[key], type: field,
+                name: key, required, thrift, data: data[key], type: field, prefix: prefix + index,
                 onChange: (d: any) => onChange({ ...data, [key]: d }),
                 onDelete: () => {
                   const { [key]: deleted, ...rest } = data;
@@ -220,10 +221,10 @@ const Level: React.SFC<ILevelProps> = (props) => {
       case "list":
         const { elemTypeId, elemType, extra: elemExtra } = type;
         return (
-          <TreeNode title={<Title {...props} />} key={name} selectable={false}>
+          <TreeNode title={<Title {...props} />} key={prefix} selectable={false}>
             {data.map((el: any, index: number) => {
               return Level({
-                name: index.toString(), required: false, thrift, data: el,
+                name: index.toString(), required: false, thrift, data: el, prefix: prefix + index,
                 type: { typeId: elemTypeId, type: elemType, extra: elemExtra },
                 onChange: (d: any) => onChange(Object.assign([...data], { [index]: d })),
                 onDelete: () => onChange(data.filter((e: any, i: number) => i !== index)),
@@ -233,10 +234,10 @@ const Level: React.SFC<ILevelProps> = (props) => {
       case "map":
         const { valueTypeId, valueType, valueExtra } = type;
         return (
-          <TreeNode title={<Title {...props} />} key={name} selectable={false}>
-            {Object.keys(data).sort().map((key) =>
+          <TreeNode title={<Title {...props} />} key={prefix} selectable={false}>
+            {Object.keys(data).sort().map((key, index) =>
               Level({
-                name: key, required: false, thrift, data: data[key],
+                name: key, required: false, thrift, data: data[key], prefix: prefix + index,
                 type: { typeId: valueTypeId, type: valueType, extra: valueExtra },
                 onChange: (d: any) => onChange({ ...data, [key]: d }),
                 onDelete: () => {
@@ -250,12 +251,12 @@ const Level: React.SFC<ILevelProps> = (props) => {
         throw new Error(`Can't handle "${typeId}" type yet`);
     }
   }
-  return <TreeNode title={<Title {...props} />} key={name} selectable={false} />;
+  return <TreeNode title={<Title {...props} />} key={prefix} selectable={false} />;
 };
 
 export const TreeView: React.SFC<IProps> = (props) =>
-  <Tree showLine defaultExpandedKeys={["root"]} className="tree-view">
-    {Level({ ...props, name: "root", required: true, onDelete: () => null })}
+  <Tree showLine defaultExpandedKeys={["."]} className="tree-view">
+    {Level({ ...props, name: "root", prefix: ".", required: true, onDelete: () => null })}
   </Tree>;
 
 export default TreeView;
