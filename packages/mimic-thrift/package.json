@@ -6,7 +6,7 @@
   "contributors": [
     "Volodymyr Ladnik"
   ],
-  "version": "2.0.3",
+  "version": "2.1.0",
   "files": [
     "dist"
   ],
@@ -18,7 +18,7 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/creditkarma/Mimic/tree/master/packages/mimic-thrift",
   "dependencies": {
-    "@creditkarma/mimic-core": "^2.0.3",
+    "@creditkarma/mimic-core": "2.1.0",
     "@creditkarma/thrift-parser": "^1.0.6",
     "thrift": "^0.11.0"
   },

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/creditkarma/Mimic/tree/master/packages/mimic-cli/compare/v2.0.3...v2.1.0) (2018-12-13)
+
+
+### Bug Fixes
+
+* **mimic-cli:** added mimic-graphql dependency ([#19](https://github.com/creditkarma/Mimic/tree/master/packages/mimic-cli/issues/19)) ([658251c](https://github.com/creditkarma/Mimic/tree/master/packages/mimic-cli/commit/658251c)), closes [#15](https://github.com/creditkarma/Mimic/tree/master/packages/mimic-cli/issues/15)
+
+
+
+
+
 <a name="2.0.3"></a>
 ## [2.0.3](https://github.com/creditkarma/Mimic/tree/master/packages/mimic-cli/compare/v2.0.2...v2.0.3) (2018-10-25)
 
