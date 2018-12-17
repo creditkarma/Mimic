@@ -98,7 +98,7 @@ export class App {
     dialog.showOpenDialog({
       properties: ["openFile", "openDirectory", "multiSelections"],
       filters: [
-        { name: "GraphQL Files", extensions: ["graphql"] },
+        { name: "GraphQL Files", extensions: ["graphql", "gql"] },
       ],
     }, (files) => {
       if (files) {

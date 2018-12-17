@@ -9,7 +9,7 @@ import {
   IUniq,
   mapValues,
   pick,
-  readRecursively,
+  readMultiExtRecursively,
   toCallback,
   writeConfig,
 } from "@creditkarma/mimic-core";
@@ -139,8 +139,16 @@ export class GraphQLProvider extends EventEmitter implements IServiceProvider {
    * Read GraphQL files recursively
    */
   public readGraphQL = (files: string[], callback: (err: Error | null, files?: {[key: string]: string}) => void) =>
-    Promise.all(files.map((f) => readRecursively(f, "graphql"))).then((values) => {
-      const content = Object.assign({}, ...values);
+    Promise.all(files.map((f) => readMultiExtRecursively(f, ["graphql", "gql"]))).then((nestedValues) => {
+      let content = {};
+      nestedValues.forEach(values => {
+        values.forEach(value => {
+          content = {
+            ...content,
+            ...value
+          };
+        });
+      })
       callback(null, content);
     }, (err) => callback(err))
 

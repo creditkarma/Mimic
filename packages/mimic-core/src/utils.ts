@@ -179,3 +179,6 @@ export const readRecursively = (fsPath: string, ext = "") =>
       resolve({});
     });
   });
+
+export const readMultiExtRecursively = (fsPath: string, exts: Array<string>): Promise<{ [key: string]: string; }[]> =>
+  Promise.all(exts.map((ext) => readRecursively(fsPath, ext)))
