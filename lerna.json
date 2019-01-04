@@ -3,7 +3,11 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
-    "packages/*"
+    "packages/mimic-cli/*",
+    "packages/mimic-core/*",
+    "packages/mimic-graphql/*",
+    "packages/mimic-rest/*",
+    "packages/mimic-rest/thrift/*"
   ],
   "version": "2.1.0"
 }

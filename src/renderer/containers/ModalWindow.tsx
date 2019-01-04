@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { ExportServices, NewService } from "./global";
 import { GraphqlResponse, GraphqlService } from "./graphql";
+import { GrpcService } from "./grpc";
 import { RestResponse, RestService } from "./rest";
 import { ThriftResponse, ThriftService } from "./thrift";
 
@@ -25,6 +26,10 @@ export const ModalWindow: React.SFC<IProps> = ({ modal }) => {
       return <ThriftService />;
     case "THRIFT_RESPONSE":
       return <ThriftResponse {...props} />;
+    case "GRPC_SERVICE":
+      return <GrpcService/>;  //@todo: change to <GrpcService/>
+    case "GRPC_RESPONSE":
+      return <div {...props}/>;  //@todo: change to <GrpcResponse/>
     case "EXPORT":
       return <ExportServices />;
     case "REST_SERVICE":

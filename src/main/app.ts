@@ -13,6 +13,7 @@ import {
   writeConfigFolder,
 } from "@creditkarma/mimic-core";
 import { GraphQLProvider } from "@creditkarma/mimic-graphql";
+import { GrpcProvider } from "../../packages/mimic-grpc";
 import { RestProvider } from "@creditkarma/mimic-rest";
 import { ThriftFile, ThriftProvider } from "@creditkarma/mimic-thrift";
 import * as revents from "common/redux_events";
@@ -22,6 +23,7 @@ import * as fs from "fs";
 export interface IServiceInput {
   responses: IResponses;
   graphql: IUniq<string>;
+  grpc: any;
   services: IUniq<IServiceJson>;
   thrift: IUniq<ThriftFile.IJSON>;
 }
@@ -30,6 +32,7 @@ export class App {
   public serviceManager = new ServiceManager({});
   public responseManager = new ResponseManager({});
   public graphqlProvider = new GraphQLProvider({}, this.responseManager);
+  public grpcProvider = new GrpcProvider({}, this.responseManager);
   public thriftProvider = new ThriftProvider({}, this.responseManager);
   public errors: any[] = [];
   public requests: IMimicRequest[] = [];
@@ -40,13 +43,15 @@ export class App {
     config.push(readConfigFolder("responses"));
     config.push(readConfigFolder("thrift")),
     config.push(readConfigFolder("graphql"));
-    Promise.all(config).then(([serv, responses, thrift, graphql]) => {
+    Promise.all(config).then(([serv, responses, thrift, graphql, grpc]) => {
       this.serviceManager = new ServiceManager(serv || {});
       this.responseManager = new ResponseManager(responses);
       this.graphqlProvider = new GraphQLProvider(graphql, this.responseManager);
+      this.grpcProvider = new GrpcProvider(grpc, this.responseManager);
       this.thriftProvider = new ThriftProvider(thrift, this.responseManager);
       const restProvider = new RestProvider(this.responseManager);
       this.serviceManager.register("graphql", this.graphqlProvider);
+      this.serviceManager.register("grpc", this.grpcProvider);
       this.serviceManager.register("thrift", this.thriftProvider);
       this.serviceManager.register("rest", restProvider);
 
@@ -103,6 +108,22 @@ export class App {
     }, (files) => {
       if (files) {
         this.graphqlProvider.validate(files, callback);
+      }
+    });
+  }
+
+  /**
+   * Choose Grpc files/directory and return JSON representation
+   */
+  public parseGrpcDialog: revents.handler<revents.PARSE_GRAPHQL> = (_, callback) => {
+    dialog.showOpenDialog({
+      properties: ["openFile", "openDirectory"],
+      filters: [
+        { name: "gRPC Files", extensions: ["proto"] },
+      ],
+    }, (files) => {
+      if (files) {
+        this.grpcProvider.process(files[0], callback);
       }
     });
   }

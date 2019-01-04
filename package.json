@@ -3,7 +3,8 @@
   "description": "Service Impersonator for the future",
   "author": "Credit Karma Inc.",
   "contributors": [
-    "Volodymyr Ladnik"
+    "Volodymyr Ladnik",
+    "Kevin Gary"
   ],
   "version": "2.1.0",
   "license": "Apache-2.0",
@@ -28,8 +29,11 @@
     "@creditkarma/mimic-graphql": "2.1.0",
     "@creditkarma/mimic-rest": "2.1.0",
     "@creditkarma/mimic-thrift": "2.1.0",
+    "@grpc/grpc-js": "^0.3.2",
     "electron-log": "^2.2.17",
     "electron-updater": "^3.0.3",
+    "grpc": "^1.10.1",
+    "protobufjs": "^6.8.8",
     "source-map-support": "^0.5.0"
   },
   "devDependencies": {

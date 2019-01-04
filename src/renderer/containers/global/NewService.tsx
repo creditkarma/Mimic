@@ -1,4 +1,4 @@
-import { GraphqlLogo, ThriftLogo } from "@renderer/components/logos";
+import { GraphqlLogo, ThriftLogo, GrpcLogo } from "@renderer/components/logos";
 import { Card, Icon, Modal } from "antd";
 import * as React from "react";
 import { connect } from "react-redux";
@@ -25,6 +25,14 @@ const data = (newService: (type: string) => void) => [
     description: `Software framework, for scalable cross-language services development,
       combines a software stack with a code generation engine for multiple languages.`,
     onClick: () => newService("THRIFT_SERVICE"),
+  },
+  {
+    icon: <i className="anticon" style={{fontSize: 18, paddingRight: 5}}><GrpcLogo /></i>,
+    title: "gRPC",
+    description: `gRPC is a modern, open source remote procedure call (RPC) framework that can run anywhere.
+      It enables client and server applications to communicate transparently, and makes it easier to build
+      connected systems.`,
+    onClick: () => newService("GRPC_SERVICE"),
   },
   {
     icon: <Icon type="global"  style={{fontSize: 18, paddingRight: 5}} />,

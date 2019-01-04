@@ -1,6 +1,7 @@
 export * from "./clients";
 export * from "./graphql";
 export * from "./graphqlFiles";
+export * from "./grpcFile";
 export * from "./modal";
 export * from "./notifications";
 export * from "./requests";

@@ -10,7 +10,7 @@ function addHandler<S>(type: string, handler: revents.handler<S>): void {
 
 const app = new App();
 app.load(() => {
-  const { graphqlProvider, serviceManager, thriftProvider, responseManager, errors, requests } = app;
+  const { graphqlProvider, grpcProvider, serviceManager, thriftProvider, responseManager, errors, requests } = app;
   ipc.on("redux-request", (event: Event, action: AnyAction) => {
     const type = action.type.substring(14);
     const callback = (error: Error | null, data?: { [key: string]: any }) => {
@@ -47,6 +47,12 @@ app.load(() => {
   addHandler<revents.PARSE_GRAPHQL>("PARSE_GRAPHQL", app.parseGraphqlDialog);
   addHandler<revents.GET_GRAPHQL>("GET_GRAPHQL", (action, callback) => {
     callback(null, { ...action, schema: graphqlProvider.find(action.id) });
+  });
+
+  // Grpc
+  addHandler<any>("PARSE_GRPC_FILE", app.parseGrpcDialog);
+  addHandler<any>("GET_GRPC", (action, callback) => {
+    callback(null, { ...action, grpc: grpcProvider.find(action.id) });
   });
 
   // Thrift

@@ -7,6 +7,7 @@ import {
   IUniq,
 } from "@creditkarma/mimic-core";
 import { IGraphqlTypes } from "@creditkarma/mimic-graphql";
+// import { GrpcFile } from "../../packages/mimic-grpc";
 import { ThriftFile } from "@creditkarma/mimic-thrift";
 
 // REDUX
@@ -69,6 +70,19 @@ export interface PARSE_THRIFT_FILE {
   content?: ThriftFile.IJSON;
   git?: IGit;
 }
+
+// gRPC
+// export interface GET_GRPC {
+//   id: string;
+//   grpc?: GrpcFile.IJSON;
+// }
+
+// export interface PARSE_GRPC_FILE {
+//   // includes: string[];
+//   path: string;
+//   content?: GrpcFile.IJSON;
+//   // git?: IGit;
+// }
 
 export interface PARSE_GRAPHQL {
   files: string[];

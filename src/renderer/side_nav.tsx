@@ -4,7 +4,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { MenuSwitch } from "./components";
-import { GraphqlLogo, ThriftLogo } from "./components/logos";
+import { GraphqlLogo, GrpcLogo, ThriftLogo } from "./components/logos";
 
 const confirm = Modal.confirm;
 
@@ -43,6 +43,12 @@ const SideNav: React.SFC<RouteComponentProps<any> & IProps> = ({ location, servi
           <span>Thrift</span>
         </Link>
       </Menu.Item>
+      <Menu.Item key="/grpc">
+        <Link to="/grpc">
+          <i className="anticon"><GrpcLogo/></i>
+          <span>gRPC</span>
+        </Link>
+      </Menu.Item>
       <Menu.Item key="/rest">
         <Link to="/rest">
           <Icon type="global" />
@@ -64,7 +70,14 @@ const SideNav: React.SFC<RouteComponentProps<any> & IProps> = ({ location, servi
         }),
       )}
     </Menu.SubMenu>
-    <Menu.SubMenu key="sub4" title={<span>REST Services</span>}>
+    <Menu.SubMenu key="sub4" title={<span>gRPC Services</span>}>
+      {sortServices(services, "grpc").map(({enabled, id, alias}) =>
+        MenuSwitch({ enabled, url: `/grpc_services/${id}`, name: alias,
+          onChange: (checked) => switchService(services, id, checked),
+        }),
+      )}
+    </Menu.SubMenu>
+    <Menu.SubMenu key="sub5" title={<span>REST Services</span>}>
     {sortServices(services, "rest").map(({enabled, id, alias}) =>
         MenuSwitch({ enabled, url: `/rest_services/${id}`, name: alias,
           onChange: (checked) => switchService(services, id, checked),
