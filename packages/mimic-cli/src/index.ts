@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-cli
+ */
+
 import { IResponses, IServiceJson, IUniq, ResponseManager, ServiceManager } from "@creditkarma/mimic-core";
 import { GraphQLProvider } from "@creditkarma/mimic-graphql";
 import { RestProvider } from "@creditkarma/mimic-rest";

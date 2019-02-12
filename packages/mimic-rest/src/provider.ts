@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-rest
+ */
+
 import { IBaseResponseManager, IMimicRequest, IServiceJson, IServiceProvider } from "@creditkarma/mimic-core";
 import { EventEmitter } from "events";
 import { createServer, IncomingMessage, ServerResponse } from "http";

@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-graphql
+ */
+
 import {
   deleteConfig,
   detectGit,

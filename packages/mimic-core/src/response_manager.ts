@@ -1,3 +1,6 @@
+/**
+ * @module @creditkarma/mimic-core
+ */
 
 import { EventEmitter } from "events";
 import * as path from "path";

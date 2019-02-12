@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-thrift
+ */
+
 import * as thrift from "thrift";
 import { inherits } from "util";
 import { createClient } from "./client";

@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-thrift
+ */
+
 // TypeIDs
 export type BaseTypeID = "bool" | "byte" | "i8" | "i16" | "i32" | "i64" | "double" | "string" | "binary" | "slist";
 export type ContainerTypeID = "list" | "set" | "map";

@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-thrift
+ */
+
 import * as ThriftFile from "./file";
 import { addService } from "./service";
 import { addStruct } from "./struct";

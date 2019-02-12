@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-thrift
+ */
+
 import { randomItem } from "@creditkarma/mimic-core";
 import * as ThriftFile from "./file";
 

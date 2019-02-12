@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-thrift
+ */
+
 import * as EventEmitter from "events";
 import { IncomingMessage, ServerResponse } from "http";
 import { Server } from "net";

@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-rest
+ */
+
 import { IUniq } from "@creditkarma/mimic-core";
 
 export interface IRouteMatch {

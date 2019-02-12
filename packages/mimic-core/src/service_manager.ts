@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-core
+ */
+
 import { randomBytes } from "crypto";
 import { EventEmitter } from "events";
 import { Server } from "net";

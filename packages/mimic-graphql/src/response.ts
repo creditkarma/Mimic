@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-graphql
+ */
+
 import { IUniq, randomItem } from "@creditkarma/mimic-core";
 import { IntrospectionOutputTypeRef } from "graphql";
 import { IGraphqlTypes } from "./provider";
@@ -15,7 +19,7 @@ export const generateGraphqlResponse = (types: IGraphqlTypes, t: IntrospectionOu
       }, {__type: t.name});
     case "INTERFACE":
     case "UNION":
-      return generateGraphqlResponse(types, randomItem(types[t.kind][t.name].possibleTypes), all);
+      return generateGraphqlResponse(types, randomItem((types[t.kind][t.name] as any).possibleTypes), all);
     case "ENUM":
       return randomItem(types.ENUM[t.name].enumValues).name;
     case "LIST":

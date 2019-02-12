@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-core
+ */
+
 import * as fs from "fs";
 import * as path from "path";
 

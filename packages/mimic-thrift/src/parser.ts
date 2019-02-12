@@ -1,3 +1,7 @@
+/**
+ * @module @creditkarma/mimic-thrift
+ */
+
 import { IUniq, readAnyFile } from "@creditkarma/mimic-core";
 import {
   Comment,
