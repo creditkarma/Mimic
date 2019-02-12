@@ -1,0 +1,29 @@
+type User {
+  id: ID!
+  first_name: String
+  last_name: String
+  full_name: String
+}
+
+type Notification {
+  id: ID!
+}
+
+type Meta {
+  id: ID!
+}
+
+type Tweet {
+  id: ID!
+  title: String
+  Author: User
+}
+
+type Query {
+  Tweet(id: ID!): Tweet 
+  Tweets(limit: Int, skip: Int, sort_field: String, sort_order: String): [Tweet]
+  TweetsData: Meta
+  User(id: ID!): User
+  Notifications(limit: Int): [Notification]
+  NotificationsMeta: Meta
+}

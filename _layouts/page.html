@@ -1,0 +1,31 @@
+---
+layout: default
+---
+{% include navbar.html type="page" %}
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-9">
+        <div class="content is-medium">
+          <div class="box">
+            {{ content }}
+          </div>
+        </div>
+      </div>
+      <div class="column is-3">
+        <aside class="is-medium menu">
+          <p class="menu-label">
+            categories
+          </p>
+          <ul class="menu-list">
+            {% for category in page.categories %}
+              <li>
+                <a class="is-active"><i class="{{site.data.icons[category]}}"></i>&nbsp;&nbsp;{{category}}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>

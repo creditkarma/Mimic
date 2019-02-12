@@ -1,0 +1,22 @@
+body, html {
+  background: #f2f2f2;
+}
+.mimic-text-link {
+  text-decoration: underline;
+}
+
+.menu-list li {
+  margin: 10px;
+}
+
+.is-shady {
+  .card-image {
+    padding: 2rem;
+  }
+  &:hover {
+    box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
+  }
+}
+.image.is-850 {
+  width: 850px;
+}

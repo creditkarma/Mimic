@@ -1,0 +1,86 @@
+<section class="hero is-primary is-bold {% if include.type == 'tiles' %}is-fullheight{% endif %}">
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="{{ site.baseurl }}/">
+            <img src="{{ site.baseurl }}/assets/images/logo.svg" alt="Logo">
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="tabs is-right">
+              <ul>
+                {% for item in site.data.navigation.main %}
+                  <li class="{% if item.url == page.url %}is-active{% endif %}">
+                    <a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+              <span class="navbar-item">
+                <a class="button is-white is-outlined" href="https://github.com/creditkarma/Mimic">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span title="Hello from the other side">View Source</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="hero-body">
+    {% case include.type %}
+    {% when 'landing' %}
+      <div class="container has-text-centered content">
+        <div class="columns is-vcentered">
+          <div class="column is-6">
+            <figure>
+              <img src="{{ site.baseurl }}/assets/images/screenshot.png" alt="Screenshot">
+            </figure>
+          </div>
+          <div class="column is-5 is-offset-1">
+            <h1 class="title is-2">
+              Mimic
+            </h1>
+            <h2 class="subtitle is-4">
+              Multi-Protocol Service Impersonator
+            </h2>
+            <p class="has-text-centered">
+              <a id="download" href="https://github.com/creditkarma/Mimic/releases/latest" class="button is-medium is-primary is-inverted is-outlined">Download</a>
+            </p>
+            or <a class="mimic-text-link" href="https://github.com/creditkarma/Mimic/releases/latest">Other Platforms</a>
+          </div>
+        </div>
+      </div>
+    {% when 'page' %}
+      <div class="container">
+        <h1 class="title">{{page.title}}</h1>
+        <h2 class="subtitle">{{page.excerpt}}</h2>
+      </div>
+    {% when 'tiles' %}
+    <div class="container content">
+      <div class="columns is-multiline">
+        {% for protocol in page.feature_row %}
+          <div class="column is-3">
+            <article class="box is-shady">
+              <p class="title has-text-dark has-text-centered">{{protocol.title}}</p>
+              <figure class="image">
+                <img src="{{site.baseurl}}{{protocol.image_path}}">
+              </figure>
+              <p class="subtitle has-text-dark">{{protocol.excerpt}}</p>
+            </article>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endcase %}
+  </div>
+</section>

@@ -1,0 +1,25 @@
+<script src="{{ site.baseurl }}/assets/js/prism.js"></script>
+<script>
+  const tag = "{{site.github.latest_release.name}}";
+  var platform, file;
+  switch (true) {
+    case navigator.platform.startsWith("Linux"):
+      platform = "Linux";
+      file = `Mimic-${tag}-linux`;
+      break;
+    case navigator.platform.startsWith("Win"):
+      platform = "Windows";
+      file = `Mimic.${tag}.exe`;
+      break;
+    case navigator.platform.startsWith("Mac"):
+      platform = "Mac";
+      file = `Mimic-${tag}-mac.dmg`;
+      break;
+  }
+  const link = document.getElementById("download")
+  if (platform && link) {
+    link.innerHTML = `Download for ${platform}`;
+    link.setAttribute("href", `https://github.com/creditkarma/Mimic/releases/download/v${tag}/${file}`)
+  }
+</script>
+  

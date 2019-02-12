@@ -14,29 +14,40 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Mimic
-logo: assets/icon.png
-email: your-email@example.com
-show_downloads: true
-description: 
-baseurl: "/Mimic" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+name: Credit Karma
+description: Mimic multi-protocol service impersonator home page
+url: https://creditkarma.github.io/Mimic
+baseurl: /Mimic
+repository: creditkarma/Mimic
+logo: /assets/images/icon.png
+search: true
+author:
+  name: Volodymyr Ladnik
+  avatar: /assets/images/bio-photo.jpg
+  bio: "My awesome biography constrained to a sentence or two goes here."
+  location: San Francisco, USA
 
-# Build settings
-markdown: kramdown
-theme: jekyll-theme-minimal
+include:
+  - _pages
+  - "*.html"
+
 plugins:
-  - jekyll-feed
+  - jekyll-seo-tag
 
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+    disable : true
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - packages
+  - vendor/bundle/
+  - dist
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
