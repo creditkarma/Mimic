@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: Mimic
 name: Credit Karma
-description: Mimic multi-protocol service impersonator home page
+description: Service Impersonator for Engineers
 url: https://creditkarma.github.io/Mimic
 baseurl: /Mimic
 repository: creditkarma/Mimic

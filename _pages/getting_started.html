@@ -1,0 +1,20 @@
+---
+title: Getting Started
+permalink: /getting_started/
+layout: combined_page
+categories:
+  - beginner
+  - tutorial
+  - graphql
+excerpt: How to install and use Mimic
+---
+<h3 class="title is-3">Desktop</h3>
+{% capture desktop %}{% include_relative getting_started/desktop.md %}{% endcapture %}
+<div class="box">
+  {{ desktop | markdownify }}
+</div>
+<h3 class="title is-3">CLI (Headless)</h3>
+{% capture cli %}{% include_relative getting_started/cli.md %}{% endcapture %}
+<div class="box">
+  {{ cli | markdownify }}
+</div>

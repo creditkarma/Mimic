@@ -22,4 +22,27 @@
     link.setAttribute("href", `https://github.com/creditkarma/Mimic/releases/download/v${tag}/${file}`)
   }
 </script>
-  
+<script>
+  const images = document.querySelectorAll(".image.playable");
+  const preload = [];
+  for (index = 0; index < images.length; index++) {
+    const image = images[index];
+    const link = image.getAttribute("src").split(".")[0];
+    // Cache image
+    preload[index] = new Image();
+    preload[index].src = link + ".gif";
+    image.setAttribute("src", link + ".png")
+    // Handle clicks
+    image.onclick = function() {
+      const ext = this.getAttribute("src").split(".")[1];
+      switch (ext) {
+      case "png":
+        this.setAttribute("src", link + ".gif")
+        break;
+      case "gif":
+        this.setAttribute("src", link + ".png")
+        break;
+      }
+    }
+  } 
+</script>
