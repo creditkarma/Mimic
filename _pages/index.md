@@ -14,7 +14,7 @@ feature_row:
     title: Cross-Platform
     excerpt: Mimic works across operating systems. Use it on OS X, Windows, Linux or any CI environment. Development or testing, you name it.
   - image: fas fa-map-signs fa-5x
-    url: /Mimic/protocols
+    url: /protocols
     title: Multi-Protocol
     excerpt: Provides a platform for multiple popular communication protocols and standards including GraphQL, Thrift and JSON REST.
   - image: fas fa-fighter-jet fa-5x

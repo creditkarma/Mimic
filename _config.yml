@@ -17,7 +17,8 @@ title: Mimic
 name: Credit Karma
 description: Service Impersonator for Engineers
 url: https://creditkarma.github.io/Mimic
-baseurl: /Mimic
+google_analytics: UA-104449376-24
+baseurl: /
 repository: creditkarma/Mimic
 logo: /assets/images/icon.png
 search: true
