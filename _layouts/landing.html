@@ -8,7 +8,7 @@ layout: default
     Check <a href="https://github.com/creditkarma/Mimic/releases/tag/v2.1.0">RELEASE</a> for a list of changes.
   </p>
 </div>
-<section class="container content">
+<section class="container content section">
   <div class="columns features is-multiline">
     {% for feature in page.feature_row %}
       <div class="column is-4">
@@ -17,11 +17,9 @@ layout: default
             <i class="{{feature.image}}"></i>
           </div>
           <div class="card-content">
-            <div class="content">
-              <h4 class="has-text-centered">{{ feature.title }}</h4>
-              <p>{{ feature.excerpt }}</p>
-              <p><a href="{{ feature.url }}">Learn more</a></p>
-            </div>
+            <h4 class="has-text-centered">{{ feature.title }}</h4>
+            <p>{{ feature.excerpt }}</p>
+            <p><a href="{{ feature.url }}">Learn more</a></p>
           </div>
         </div>
       </div>
