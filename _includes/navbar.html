@@ -1,6 +1,6 @@
 <section class="hero is-primary is-bold {% if include.type == 'tiles' %}is-fullheight{% endif %}">
   <div class="hero-head">
-    <nav class="navbar">
+    <nav class="navbar is-transparent">
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item" href="{{ site.baseurl }}/">
@@ -14,24 +14,18 @@
         </div>
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-end">
-            <div class="tabs is-right">
-              <ul>
-                {% for item in site.data.navigation.main %}
-                  <li class="{% if item.url == page.url %}is-active{% endif %}">
-                    <a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a>
-                  </li>
-                {% endfor %}
-              </ul>
-              <span class="navbar-item">
-                <a class="button is-white is-outlined" href="https://github.com/creditkarma/Mimic">
-                  <span class="icon">
-                    <i class="fab fa-github"></i>
-                  </span>
-                  <span title="Hello from the other side">View Source</span>
-                </a>
-              </span>
-            </div>
+            {% for item in site.data.navigation.main %}
+              <a class="navbar-item {% if item.url == page.url %}is-active{% endif %}" href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a>
+            {% endfor %}
           </div>
+          <span class="navbar-item">
+            <a class="button is-white is-outlined" href="https://github.com/creditkarma/Mimic">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>View Source</span>
+            </a>
+          </span>
         </div>
       </div>
     </nav>
