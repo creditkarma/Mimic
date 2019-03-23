@@ -1,0 +1,36 @@
+<testsuites name="jest tests" tests="11" failures="0" time="4.856">
+  <testsuite name="RestProvider" errors="0" failures="0" skipped="0" timestamp="2019-03-23T22:34:38" time="2.497" tests="1">
+    <testcase classname="RestProvider should be ok" name="RestProvider should be ok" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="readRecursively()" errors="0" failures="0" skipped="0" timestamp="2019-03-23T22:34:38" time="2.799" tests="1">
+    <testcase classname="readRecursively() returns data" name="readRecursively() returns data" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="ResponseManager" errors="0" failures="0" skipped="0" timestamp="2019-03-23T22:34:38" time="3.001" tests="6">
+    <testcase classname="ResponseManager find() with data returns data" name="ResponseManager find() with data returns data" time="0.009">
+    </testcase>
+    <testcase classname="ResponseManager find() without data returns empty object" name="ResponseManager find() without data returns empty object" time="0.001">
+    </testcase>
+    <testcase classname="ResponseManager export() returns responses for selected services" name="ResponseManager export() returns responses for selected services" time="0.001">
+    </testcase>
+    <testcase classname="ResponseManager add() adds response for the service" name="ResponseManager add() adds response for the service" time="0.001">
+    </testcase>
+    <testcase classname="ResponseManager add() emits event for the update" name="ResponseManager add() emits event for the update" time="0.002">
+    </testcase>
+    <testcase classname="ResponseManager delete() removes services responses from memory" name="ResponseManager delete() removes services responses from memory" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="ServiceManager" errors="0" failures="0" skipped="0" timestamp="2019-03-23T22:34:38" time="3.089" tests="1">
+    <testcase classname="ServiceManager register() adds provider to the list" name="ServiceManager register() adds provider to the list" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="ThriftParser" errors="0" failures="0" skipped="0" timestamp="2019-03-23T22:34:38" time="3.182" tests="1">
+    <testcase classname="ThriftParser parse() generates valid JSON" name="ThriftParser parse() generates valid JSON" time="0.03">
+    </testcase>
+  </testsuite>
+  <testsuite name="GraphQLProvider" errors="0" failures="0" skipped="0" timestamp="2019-03-23T22:34:38" time="3.342" tests="1">
+    <testcase classname="GraphQLProvider validate() returns data" name="GraphQLProvider validate() returns data" time="0.006">
+    </testcase>
+  </testsuite>
+</testsuites>

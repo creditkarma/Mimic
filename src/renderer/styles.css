@@ -152,3 +152,8 @@
 .client-tabs .error {
   color: red;
 }
+
+.npm__react-simple-code-editor__textarea:focus,
+.npm__react-simple-code-editor__textarea:active {
+    outline: none;
+}

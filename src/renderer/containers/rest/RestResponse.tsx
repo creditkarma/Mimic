@@ -1,12 +1,13 @@
 import { IResponses, IServiceJson, IUniq } from "@creditkarma/mimic-core";
 import { Form, Input, Modal, Select } from "antd";
 import { FormComponentProps } from "antd/lib/form";
+import CodeEditor from './CodeEditor';
 import React from "react";
 import { connect } from "react-redux";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const { TextArea } = Input;
+const Editor: any = CodeEditor;
 
 const formItemLayout = {
   labelCol: {
@@ -80,7 +81,7 @@ export const RestResponse: React.SFC<IProps> = ({
             initialValue: JSON.stringify(resp.data, null, 2),
             rules: [{ validator: jsonValidator, required: true }],
           })(
-            <TextArea rows={18} />,
+            <Editor />
           )}
         </FormItem>
       </Form>

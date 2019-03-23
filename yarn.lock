@@ -8547,6 +8547,11 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
+react-simple-code-editor@0.9.7:
+  version "0.9.7"
+  resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.9.7.tgz#5cba6c0b482c51d97101cb2f69877e75176bb4e4"
+  integrity sha512-+DEz+odZBwuBgTQB3uF0/RTjDmQXDYLR4KaOAkBtR68fF3xFsGzVk/ujlNQtpHp5OPZcBVz8Zmj8l7Csw3VmLw==
+
 react-slick@~0.23.1:
   version "0.23.1"
   resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.23.1.tgz#15791c4107f0ba3a5688d5bd97b7b7ceaa0dd181"
