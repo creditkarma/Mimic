@@ -61,7 +61,7 @@ export const RestResponse: React.SFC<IProps> = ({
     <Modal
       title={`Response for ${service.alias}`}
       visible onOk={handleOk} onCancel={cancel}
-      width={600} okText="Save">
+      width={'98%'} style={{'top': '12px'}} okText="Save">
       <Form>
         <FormItem label="Method" {...formItemLayout}>
           {getFieldDecorator("method", { initialValue: resp.method, rules: [{ required: true }] })(

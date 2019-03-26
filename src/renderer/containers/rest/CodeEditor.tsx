@@ -13,11 +13,15 @@ export default class CodeEditor extends React.PureComponent<IProps> {
       <Editor
         className='ant-input'
         value={this.props.value}
-        padding={8}
+        padding={[8, 8, 8, 28]}
         onValueChange={code => this.props.onChange(code || '')}
-        highlight={(code) => code}
+        highlight={(code) => {
+          return code.split('\n').map(line => {
+            return `<span class="code-editor-line-number">${line}</span>`
+          }).join('\n');
+        }}
         style={{
-          height: 380,
+          height: `calc(100vh - 420px)`,
           lineHeight: 1.2,
           fontSize: 12,
           fontFamily: '"Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace'
