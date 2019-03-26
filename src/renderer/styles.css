@@ -153,10 +153,6 @@
   color: red;
 }
 
-.ant-modal-wrap {
-  overflow: hidden;
-}
-
 .npm__react-simple-code-editor__textarea:focus,
 .npm__react-simple-code-editor__textarea:active {
   outline: none;
@@ -169,7 +165,7 @@
 .code-editor-line-number:before {
   position: absolute;
   right: 100%;
-  margin-right: -22px;
+  margin-right: -26px;
   text-align: right;
   opacity: .3;
   user-select: none;
