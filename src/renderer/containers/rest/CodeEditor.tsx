@@ -15,11 +15,7 @@ export default class CodeEditor extends React.PureComponent<IProps> {
         value={this.props.value}
         padding={[8, 8, 8, 28]}
         onValueChange={code => this.props.onChange(code || '')}
-        highlight={(code) => {
-          return code.split('\n').map(line => {
-            return `<span class="code-editor-line-number">${line}</span>`
-          }).join('\n');
-        }}
+        highlight={code  => this.insertLineNumbers(code)}
         style={{
           height: `calc(100vh - 420px)`,
           lineHeight: 1.2,
@@ -28,5 +24,14 @@ export default class CodeEditor extends React.PureComponent<IProps> {
         }}
       />
     );
+  }
+
+  insertLineNumbers(code: string): string | null {
+    if (!code) {
+      return null;
+    }
+    return code.split('\n').map(line => {
+      return `<span class="code-editor-line-number">${line}</span>`
+    }).join('\n');
   }
 }
