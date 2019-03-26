@@ -26,10 +26,7 @@ export default class CodeEditor extends React.PureComponent<IProps> {
     );
   }
 
-  insertLineNumbers(code: string): string | null {
-    if (!code) {
-      return null;
-    }
+  private insertLineNumbers(code: string = ''): string | null {
     return code.split('\n').map(line => {
       return `<span class="code-editor-line-number">${line}</span>`
     }).join('\n');
