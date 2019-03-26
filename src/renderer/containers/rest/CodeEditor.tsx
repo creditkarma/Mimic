@@ -15,8 +15,9 @@ export default class CodeEditor extends React.PureComponent<IProps> {
         value={this.props.value}
         padding={[8, 8, 8, 32]}
         onValueChange={code => this.props.onChange(code || '')}
-        highlight={code  => this.insertLineNumbers(code)}
+        highlight={code => this.insertLineNumbers(code)}
         style={{
+          minHeight: `calc(100vh - 420px)`,
           height: `auto`,
           lineHeight: 1.2,
           fontSize: 12,
