@@ -58,7 +58,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "react-simple-code-editor": "https://github.com/mackness/react-simple-code-editor.git#padding",
+    "react-simple-code-editor": "0.9.7",
     "react-virtualized": "^9.20.1",
     "redux": "^3.7.2",
     "request": "^2.88.0",

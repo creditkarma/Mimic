@@ -153,22 +153,34 @@
   color: red;
 }
 
-.npm__react-simple-code-editor__textarea:focus,
-.npm__react-simple-code-editor__textarea:active {
-  outline: none;
+.ant-modal-wrap {
+  overflow: hidden;
 }
 
-.npm__react-simple-code-editor__textarea {
+.npm__react-simple-code-editor__textarea:focus,
+.npm__react-simple-code-editor__textarea:active {
+  outline: 0;
+}
+
+.code-editor-container {
+  overflow: auto;
+  padding-left: 2em;
   counter-reset: line;
+  height: calc(100vh - 420px);
+}
+
+.code-editor-container pre,
+.code-editor-container textarea {
+  overflow: visible !important;
 }
 
 .code-editor-line-number:before {
   position: absolute;
   right: 100%;
-  margin-right: -26px;
   text-align: right;
   opacity: .3;
+  color: #000;
   user-select: none;
   counter-increment: line;
-  content: counter(line);
+  content: counter(line) " ";
 }

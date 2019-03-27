@@ -10,24 +10,24 @@ interface IProps extends FormComponentProps {
 export default class CodeEditor extends React.PureComponent<IProps> {
   render() {
     return (
-      <Editor
-        className='ant-input'
-        value={this.props.value}
-        padding={[8, 8, 8, 32]}
-        onValueChange={code => this.props.onChange(code || '')}
-        highlight={code => this.insertLineNumbers(code)}
-        style={{
-          minHeight: `calc(100vh - 420px)`,
-          height: `auto`,
-          lineHeight: 1.2,
-          fontSize: 12,
-          fontFamily: '"Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace'
-        }}
-      />
+      <div className="code-editor-container ant-input">
+        <Editor
+          value={this.props.value}
+          padding={8}
+          onValueChange={code => this.props.onChange(code || '')}
+          highlight={code => this.insertLineNumbers(code)}
+          style={{
+            lineHeight: 1.2,
+            fontSize: 12,
+            overflow: 'visible',
+            fontFamily: '"Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace'
+          }}
+        />
+      </div>
     );
   }
 
-  private insertLineNumbers(code: string = ''): string | null {
+  private insertLineNumbers(code: string = ''): string {
     return code.split('\n').map(line => {
       return `<span class="code-editor-line-number">${line}</span>`
     }).join('\n');
