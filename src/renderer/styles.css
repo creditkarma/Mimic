@@ -162,11 +162,16 @@
   outline: 0;
 }
 
+.ant-modal.full-screen {
+  width: 98% !important;
+  top: 12px;
+}
+
 .code-editor-container {
   overflow: auto;
-  padding-left: 2em;
+  padding-left: 2.5em;
   counter-reset: line;
-  height: calc(100vh - 420px);
+  height: calc(100vh - 380px);
 }
 
 .code-editor-container pre,

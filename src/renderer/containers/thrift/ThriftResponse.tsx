@@ -1,6 +1,7 @@
 import { IResponses, IUniq } from "@creditkarma/mimic-core";
 import { formatThrift, generateThriftResponse, IThriftServiceJson, ThriftFile } from "@creditkarma/mimic-thrift";
-import { Form, Icon, Input, Modal, Select, Switch } from "antd";
+import { CodeEditor } from "@renderer/components";
+import { Form, Icon, Modal, Select, Switch } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import React from "react";
 import { connect } from "react-redux";
@@ -9,7 +10,6 @@ import { validate } from "./validator";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const { TextArea } = Input;
 
 const formatter = (typeId: ThriftFile.TypeID, type?: ThriftFile.Type, exception?: string): IResponseType => ({
   name: formatThrift(typeId, type), typeId, type, exception,
@@ -74,7 +74,7 @@ export class ThriftResponse extends React.Component<IProps, IState> {
       <Modal
         title={`Response for ${service.alias}`}
         visible onOk={this.handleOk} onCancel={this.props.cancel}
-        width={600} okText="Save">
+        className="full-screen" okText="Save">
         <Form>
           <FormItem label="Function" {...formItemLayout}>
             {getFieldDecorator("func", { initialValue: func, rules: [{ required: true }] })(
@@ -94,7 +94,7 @@ export class ThriftResponse extends React.Component<IProps, IState> {
             {this.props.form.getFieldDecorator("data", {
               initialValue: data,
               rules: [{ validator: this.dataValidator, required: true }],
-            })(<TextArea rows={20} style={{ display: this.state.tree ? "none" : "block" }} />)}
+            })(<CodeEditor style={{ display: this.state.tree ? "none" : "block" }} />)}
             {this.state.tree ?
               <TreeView
                 onChange={(d) => this.props.form.setFieldsValue({ data: JSON.stringify(d, null, 2) })}
