@@ -182,5 +182,5 @@
   color: #000;
   user-select: none;
   counter-increment: line;
-  content: counter(line) " ";
+  content: counter(line);
 }
