@@ -39,6 +39,9 @@ yarn lerna
 ### Development Scripts
 
 ```bash
+# Project uses conventional commit linter. The easiest way to make a commit is by using this command
+yarn commit
+
 # run application in development mode
 yarn dev
 
@@ -50,9 +53,6 @@ yarn dist
 
 # `yarn compile` & create unpacked build with electron-builder
 yarn dist:dir
-
-# conventional commit helper
-yarn commit
 ```
 
 ## Contributing

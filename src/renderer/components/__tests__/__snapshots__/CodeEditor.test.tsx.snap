@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CodeEditor can parse JSON code 1`] = `
+<div
+  className="code-editor-container ant-input"
+>
+  <div
+    style={
+      Object {
+        "boxSizing": "border-box",
+        "fontSize": 16,
+        "lineHeight": 1.2,
+        "overflow": "visible",
+        "padding": 0,
+        "position": "relative",
+        "textAlign": "left",
+      }
+    }
+  >
+    <textarea
+      autoCapitalize="off"
+      autoComplete="off"
+      autoCorrect="off"
+      className="npm__react-simple-code-editor__textarea"
+      data-gramm={false}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      spellCheck={false}
+      style={
+        Object {
+          "MozOsxFontSmoothing": "grayscale",
+          "WebkitFontSmoothing": "antialiased",
+          "WebkitTextFillColor": "transparent",
+          "background": "none",
+          "border": 0,
+          "boxSizing": "inherit",
+          "color": "inherit",
+          "display": "inherit",
+          "fontFamily": "inherit",
+          "fontSize": "inherit",
+          "fontStyle": "inherit",
+          "fontVariantLigatures": "inherit",
+          "fontWeight": "inherit",
+          "height": "100%",
+          "left": 0,
+          "letterSpacing": "inherit",
+          "lineHeight": "inherit",
+          "margin": 0,
+          "overflow": "hidden",
+          "overflowWrap": "break-word",
+          "paddingBottom": 8,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 8,
+          "position": "absolute",
+          "resize": "none",
+          "tabSize": "inherit",
+          "textIndent": "inherit",
+          "textRendering": "inherit",
+          "textTransform": "inherit",
+          "top": 0,
+          "whiteSpace": "pre-wrap",
+          "width": "100%",
+          "wordBreak": "keep-all",
+        }
+      }
+      value="{
+  \\"id\\": 1,
+  \\"name\\": \\"John\\",
+  \\"items\\": [\\"one\\", \\"two\\"]
+}"
+    />
+    <pre
+      aria-hidden="true"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<span class=\\"code-editor-line-number\\"><span class=\\"token punctuation\\">{</span></span>
+<span class=\\"code-editor-line-number\\">  <span class=\\"token property\\">\\"id\\"</span><span class=\\"token operator\\">:</span> <span class=\\"token number\\">1</span><span class=\\"token punctuation\\">,</span></span>
+<span class=\\"code-editor-line-number\\">  <span class=\\"token property\\">\\"name\\"</span><span class=\\"token operator\\">:</span> <span class=\\"token string\\">\\"John\\"</span><span class=\\"token punctuation\\">,</span></span>
+<span class=\\"code-editor-line-number\\">  <span class=\\"token property\\">\\"items\\"</span><span class=\\"token operator\\">:</span> <span class=\\"token punctuation\\">[</span><span class=\\"token string\\">\\"one\\"</span><span class=\\"token punctuation\\">,</span> <span class=\\"token string\\">\\"two\\"</span><span class=\\"token punctuation\\">]</span></span>
+<span class=\\"code-editor-line-number\\"><span class=\\"token punctuation\\">}</span></span><br />",
+        }
+      }
+      style={
+        Object {
+          "background": "none",
+          "border": 0,
+          "boxSizing": "inherit",
+          "display": "inherit",
+          "fontFamily": "inherit",
+          "fontSize": "inherit",
+          "fontStyle": "inherit",
+          "fontVariantLigatures": "inherit",
+          "fontWeight": "inherit",
+          "letterSpacing": "inherit",
+          "lineHeight": "inherit",
+          "margin": 0,
+          "overflowWrap": "break-word",
+          "paddingBottom": 8,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 8,
+          "pointerEvents": "none",
+          "position": "relative",
+          "tabSize": "inherit",
+          "textIndent": "inherit",
+          "textRendering": "inherit",
+          "textTransform": "inherit",
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "keep-all",
+        }
+      }
+    />
+    <style
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "
+/**
+ * Reset the text fill color so that placeholder is visible
+ */
+.npm__react-simple-code-editor__textarea:empty {
+  -webkit-text-fill-color: inherit !important;
+}
+
+/**
+ * Hack to apply on some CSS on IE10 and IE11
+ */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /**
+    * IE doesn't support '-webkit-text-fill-color'
+    * So we use 'color: transparent' to make the text transparent on IE
+    * Unlike other browsers, it doesn't affect caret color in IE
+    */
+  .npm__react-simple-code-editor__textarea {
+    color: transparent !important;
+  }
+
+  .npm__react-simple-code-editor__textarea::selection {
+    background-color: #accef7 !important;
+    color: transparent !important;
+  }
+}
+",
+        }
+      }
+      type="text/css"
+    />
+  </div>
+</div>
+`;

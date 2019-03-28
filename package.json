@@ -42,6 +42,7 @@
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^6.0.5",
     "@types/react-router-dom": "^4.2.3",
+    "@types/react-test-renderer": "^16.8.1",
     "@types/react-virtualized": "^9.18.7",
     "@types/semver": "^5.5.0",
     "antd": "^3.1.4",
@@ -61,6 +62,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-simple-code-editor": "0.9.7",
+    "react-test-renderer": "^16.8.6",
     "react-virtualized": "^9.20.1",
     "redux": "^3.7.2",
     "request": "^2.88.0",
@@ -98,7 +100,10 @@
       "jsx",
       "json",
       "node"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
+    }
   },
   "electronWebpack": {
     "renderer": {
