@@ -172,7 +172,7 @@ export class ServiceManager extends EventEmitter {
    * Disable service
    */
   public disable = (id: string, callback: (err: Error | null) => void) => {
-    this.servers[id].close((err: Error) => {
+    this.servers[id].close((err?: Error) => {
       if (err) { return callback(err); }
       this.services[id].enabled = false;
       this.persist(callback);

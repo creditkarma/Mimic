@@ -69,7 +69,7 @@ export class ThriftService extends React.Component<IProps, {}> {
             </Tooltip>:</span>} key="1" className="includes-panel" style={{ border: 0 }}>
               <div style={{ marginLeft: 93, width: 320 }}>
                 {this.includes()}
-                <Button type="dashed" onClick={this.addInclude} style={{ marginTop: 10 }}>
+                <Button type={"dashed" as any} onClick={this.addInclude} style={{ marginTop: 10 }}>
                   <Icon type="plus" /> Add path
                 </Button>
               </div>

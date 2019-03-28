@@ -1,4 +1,4 @@
-import * as EventEmitter from "events";
+import { EventEmitter } from "events";
 import { IncomingMessage, ServerResponse } from "http";
 import { Server } from "net";
 import * as path from "path";

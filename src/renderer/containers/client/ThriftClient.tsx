@@ -92,7 +92,7 @@ export class ThriftClient extends React.PureComponent<IProps, IState> {
                   <Input placeholder="Enter request url" style={{width: "80%"}} />,
                 )}
               </InputGroup>
-              <Button type="primary" disabled={this.invalid()} htmlType="submit">Send</Button>
+              <Button type={"primary" as any} disabled={this.invalid()} htmlType="submit">Send</Button>
               <Button onClick={this.downloadRequest} disabled={this.invalid()}>Save</Button>
             </div>
             <div style={{width: 300}}>
