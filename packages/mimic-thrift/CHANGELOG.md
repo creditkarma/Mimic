@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/creditkarma/Mimic/tree/master/packages/mimic-thrift/compare/v2.2.0...v2.2.1) (2019-03-28)
+
+**Note:** Version bump only for package @creditkarma/mimic-thrift
+
+
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/creditkarma/Mimic/tree/master/packages/mimic-thrift/compare/v2.1.0...v2.2.0) (2019-03-28)
 
