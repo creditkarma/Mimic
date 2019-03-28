@@ -10,12 +10,12 @@ jobs:
       - checkout
       # Restore node_modules
       - restore_cache:
-          key: v1-js-dependencies-{{ checksum "yarn.lock" }}
+          key: v2-js-dependencies-{{ checksum "yarn.lock" }}
       # Install dependencies
       - run: yarn install --frozen-lockfile
       # Save cache
       - save_cache:
-          key: v1-js-dependencies-{{ checksum "yarn.lock" }}
+          key: v2-js-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
       # Setup packages

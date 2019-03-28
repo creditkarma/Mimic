@@ -3,9 +3,10 @@ jest.mock("../config");
 import { IServiceJson, IServiceProvider, ServiceManager } from "../service_manager";
 import { IUniq } from "../utils";
 
-const TestProvider = jest.fn<IServiceProvider>(() => ({
+const TestProvider = jest.fn<IServiceProvider, any>(() => ({
   create: jest.fn(),
   add: jest.fn(),
+  emit: jest.fn(),
   on: jest.fn(),
 }));
 
