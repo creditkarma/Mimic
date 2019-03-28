@@ -1,3 +1,4 @@
+export { CodeEditor } from "./CodeEditor";
 export { default as EditableCell } from "./EditableCell";
 export { default as MenuSwitch } from "./MenuSwitch";
 import * as logos from "./logos";

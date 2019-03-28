@@ -1,4 +1,5 @@
 import { IResponses, IServiceJson, IUniq } from "@creditkarma/mimic-core";
+import { CodeEditor } from "@renderer/components";
 import { Form, Input, Modal, Select } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import React from "react";
@@ -6,7 +7,6 @@ import { connect } from "react-redux";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const { TextArea } = Input;
 
 const formItemLayout = {
   labelCol: {
@@ -60,7 +60,7 @@ export const RestResponse: React.SFC<IProps> = ({
     <Modal
       title={`Response for ${service.alias}`}
       visible onOk={handleOk} onCancel={cancel}
-      width={600} okText="Save">
+      className="full-screen" okText="Save">
       <Form>
         <FormItem label="Method" {...formItemLayout}>
           {getFieldDecorator("method", { initialValue: resp.method, rules: [{ required: true }] })(
@@ -69,18 +69,18 @@ export const RestResponse: React.SFC<IProps> = ({
             </Select>,
           )}
         </FormItem>
-        <FormItem label="Path" {...formItemLayout}>
+        <FormItem label="Path" {...formItemLayout} style={{margin: 0}}>
           {getFieldDecorator("path", { initialValue: resp.path, rules: [{ required: true }] })(
             <Input />,
           )}
           <b>Example:</b> /controller/:action/:id
         </FormItem>
-        <FormItem label="Data">
+        <FormItem label="Data" style={{margin: 0}}>
           {getFieldDecorator("data", {
             initialValue: JSON.stringify(resp.data, null, 2),
             rules: [{ validator: jsonValidator, required: true }],
           })(
-            <TextArea rows={18} />,
+            <CodeEditor />,
           )}
         </FormItem>
       </Form>
