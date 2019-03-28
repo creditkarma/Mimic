@@ -6,7 +6,7 @@
   "contributors": [
     "Volodymyr Ladnik"
   ],
-  "version": "2.1.0",
+  "version": "2.2.0",
   "files": [
     "bin",
     "dist"
@@ -22,10 +22,10 @@
     "mimic": "./bin/mimic.js"
   },
   "dependencies": {
-    "@creditkarma/mimic-core": "2.1.0",
-    "@creditkarma/mimic-graphql": "2.1.0",
-    "@creditkarma/mimic-rest": "2.1.0",
-    "@creditkarma/mimic-thrift": "2.1.0"
+    "@creditkarma/mimic-core": "2.2.0",
+    "@creditkarma/mimic-graphql": "2.2.0",
+    "@creditkarma/mimic-rest": "2.2.0",
+    "@creditkarma/mimic-thrift": "2.2.0"
   },
   "publishConfig": {
     "access": "public"

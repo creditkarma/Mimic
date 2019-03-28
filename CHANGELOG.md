@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/creditkarma/Mimic/compare/v2.1.0...v2.2.0) (2019-03-28)
+
+
+### Features
+
+* Added CodeEditor component for rich code editing ([#26](https://github.com/creditkarma/Mimic/pull/26)) ([d017107](https://github.com/creditkarma/Mimic/commit/d017107))
+
+
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/creditkarma/Mimic/compare/v2.0.3...v2.1.0) (2018-12-13)
 
