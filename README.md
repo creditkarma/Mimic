@@ -6,7 +6,7 @@
 
 ## What exactly is Mimic?
 
-It’s a set of [NPM libraries](https://www.npmjs.com/search?q=@creditkarma/mimic), [CLI tool](https://www.npmjs.com/package/@creditkarma/mimic-cli) and [Desktop](../../releases) application built around the idea of faking real service by implementing it’s contract.
+It’s a set of [NPM libraries](https://www.npmjs.com/search?q=@creditkarma/mimic), [CLI tool](https://www.npmjs.com/package/@creditkarma/mimic-cli) and [Desktop](../../releases) application built around the idea of faking real service by implementing its contract.
 
 So why would you need this tool in the first place? Though faking services is pretty trivial, but you still need to provide responses for every endpoint. Mimic on the contrary can read your service definition and generate responses for you. Check out [Wiki](../../wiki) with detailed instructions.
 
