@@ -6,12 +6,16 @@ import {
   IServiceJson,
   IUniq,
 } from "@creditkarma/mimic-core";
-import { IGraphqlTypes } from "@creditkarma/mimic-graphql";
-import { ThriftFile } from "@creditkarma/mimic-thrift";
+import { IGraphqlServiceJson, IGraphqlTypes } from "@creditkarma/mimic-graphql";
+import { IRestServiceJson } from "@creditkarma/mimic-rest";
+import { IThriftServiceJson, ThriftFile } from "@creditkarma/mimic-thrift";
 
 // REDUX
 export type handler<S> = (action: S, callback: (err: Error | null, action?: S) => void) => void;
 export type Response<S> = S &  {error: Error | null };
+
+// Supported Services
+export type ServiceType = IThriftServiceJson | IGraphqlServiceJson | IRestServiceJson;
 
 /* tslint:disable:class-name interface-name no-empty-interface */
 

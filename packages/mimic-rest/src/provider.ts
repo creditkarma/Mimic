@@ -7,6 +7,11 @@ import RouterTree from "./router";
 
 interface IEventedResponseManager extends IBaseResponseManager, EventEmitter {}
 
+// REST Service definition
+export interface IRestServiceJson extends IServiceJson {
+  type: "rest";
+}
+
 /**
  * REST Service Provider
  *

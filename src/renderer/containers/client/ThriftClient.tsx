@@ -13,13 +13,18 @@ const InputGroup = Input.Group;
 const TabPane = Tabs.TabPane;
 const { TextArea } = Input;
 
-interface IProps extends FormComponentProps {
+interface IConnectedProps extends FormComponentProps {
   clients: IUniq<Array<Required<IClientAction>>>;
-  service: IThriftServiceJson;
   thrift: IUniq<ThriftFile.IJSON>;
   loadThrift: (id: string) => void;
   sendRequest: (request: IClientAction["request"]) => void;
 }
+
+interface IExternalProps {
+  service: IThriftServiceJson;
+}
+
+interface IProps extends IConnectedProps, IExternalProps {}
 
 interface IState {
   request: IClientAction["request"] | undefined;
@@ -271,7 +276,8 @@ export class ThriftClient extends React.PureComponent<IProps, IState> {
   }
 }
 
-const mapStateToProps = ({ clients, thrift }: IProps) => ({ clients, thrift });
+const mapStateToProps = ({ clients, thrift }: IConnectedProps, { service }: IExternalProps) =>
+  ({ clients, thrift, service });
 const mapDispatchToProps = (dispatch: any) => ({
   loadThrift: (id: string) => dispatch({ type: "@@IPC_REQUEST/GET_THRIFT", id }),
   sendRequest: (request: IClientAction["request"]) => dispatch({ type: "@@IPC_REQUEST/SEND_REQUEST", request }),

@@ -1,5 +1,6 @@
-import { IServiceJson, IUniq } from "@creditkarma/mimic-core";
+import { IUniq } from "@creditkarma/mimic-core";
 import { Icon, Tabs } from "antd";
+import { ServiceType } from "common/redux_events";
 import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,10 +8,10 @@ import { ThriftClient } from "./index";
 const TabPane = Tabs.TabPane;
 
 interface IProps {
-  services: IUniq<IServiceJson>;
+  services: IUniq<ServiceType>;
 }
 
-const clientPage = (service: any) => {
+const clientPage = (service: ServiceType) => {
   switch (service.type) {
   case "thrift":
     return <ThriftClient service={service} />;

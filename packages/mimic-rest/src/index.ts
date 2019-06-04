@@ -1,1 +1,1 @@
-export { RestProvider } from "./provider";
+export * from "./provider";

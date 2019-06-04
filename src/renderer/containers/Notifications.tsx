@@ -10,7 +10,7 @@ interface IProps {
   };
 }
 
-const error = (err: any) =>
+const error = (err: {[key: string]: any}) =>
   <div>
     {Object.entries(err).map(([k, v]) => <p>{k}: <code>{v}</code></p>)}
   </div>;
