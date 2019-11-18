@@ -20,7 +20,7 @@
   "dependencies": {
     "@creditkarma/mimic-core": "2.2.1",
     "@creditkarma/thrift-parser": "^1.0.6",
-    "thrift": "^0.11.0"
+    "thrift": "^0.13.0"
   },
   "devDependencies": {
     "@types/thrift": "^0.10.7"
